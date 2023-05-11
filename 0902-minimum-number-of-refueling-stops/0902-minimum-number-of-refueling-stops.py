@@ -1,15 +1,18 @@
 class Solution:
   def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
-    # dp[i] := farthest position we can reach w / i refuels
-    dp = [startFuel] + [0] * len(stations)
+    ans = 0
+    i = 0  # station's index
+    curr = startFuel
+    maxHeap = []
 
-    for i, station in enumerate(stations):
-      for j in range(i + 1, 0, -1):
-        if dp[j - 1] >= station[0]:  # With j - 1 refuels, we can reach stations[i][0]
-          dp[j] = max(dp[j], dp[j - 1] + station[1])
+    while curr < target:
+      # Add all reachable stops to maxHeap
+      while i < len(stations) and stations[i][0] <= curr:
+        heapq.heappush(maxHeap, -stations[i][1])
+        i += 1
+      if not maxHeap:  # We can't refuel
+        return -1
+      curr -= heapq.heappop(maxHeap)  # Pop out the largest gas
+      ans += 1  # Then refuel once
 
-    for i, d in enumerate(dp):
-      if d >= target:
-        return i
-
-    return -1
+    return ans
