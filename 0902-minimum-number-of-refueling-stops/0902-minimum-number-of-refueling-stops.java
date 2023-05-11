@@ -1,20 +1,18 @@
 class Solution {
   public int minRefuelStops(int target, int startFuel, int[][] stations) {
-    int ans = 0;
-    int i = 0; // stations's index
-    int curr = startFuel;
-    Queue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+    // dp[i] := farthest position we can reach w/ i refuels
+    long dp[] = new long[stations.length + 1];
+    dp[0] = startFuel;
 
-    while (curr < target) {
-      // Add all reachable stops to maxHeap
-      while (i < stations.length && curr >= stations[i][0])
-        maxHeap.offer(stations[i++][1]);
-      if (maxHeap.isEmpty()) // We can't refuel
-        return -1;
-      curr += maxHeap.poll(); // Pop out the largest gas
-      ++ans;                  // Then refuel once
-    }
+    for (int i = 0; i < stations.length; ++i)
+      for (int j = i + 1; j > 0; --j)
+        if (dp[j - 1] >= stations[i][0]) // With j - 1 refuels, we can reach stations[i][0]
+          dp[j] = Math.max(dp[j], dp[j - 1] + stations[i][1]);
 
-    return ans;
+    for (int i = 0; i < dp.length; ++i)
+      if (dp[i] >= target)
+        return i;
+
+    return -1;
   }
 }
