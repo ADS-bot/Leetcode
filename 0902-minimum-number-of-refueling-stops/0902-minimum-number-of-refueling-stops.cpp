@@ -1,20 +1,21 @@
 class Solution {
  public:
   int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
-    // dp[i] := farthest position we can reach w/ i refuels
-    vector<long> dp(stations.size() + 1);
-    dp[0] = startFuel;
+    int ans = 0;
+    int i = 0;  // stations's index
+    int curr = startFuel;
+    priority_queue<int> maxHeap;
 
-    for (int i = 0; i < stations.size(); ++i)
-      for (int j = i + 1; j > 0; --j)
-        if (dp[j - 1] >=
-            stations[i][0])  // With j - 1 refuels, we can reach stations[i][0]
-          dp[j] = max(dp[j], dp[j - 1] + stations[i][1]);
+    while (curr < target) {
+      // Add all reachable stops to maxHeap
+      while (i < stations.size() && curr >= stations[i][0])
+        maxHeap.push(stations[i++][1]);
+      if (maxHeap.empty())  // We can't refuel
+        return -1;
+      curr += maxHeap.top(), maxHeap.pop();  // Pop out the largest gas
+      ++ans;                                 // Then refuel once
+    }
 
-    for (int i = 0; i < dp.size(); ++i)
-      if (dp[i] >= target)
-        return i;
-
-    return -1;
+    return ans;
   }
 };
