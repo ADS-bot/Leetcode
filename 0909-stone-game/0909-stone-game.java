@@ -1,14 +1,18 @@
 class Solution {
   public boolean stoneGame(int[] piles) {
     final int n = piles.length;
-    int[] dp = piles.clone();
+    // dp[i][j] := max stones you can get more than your opponent in piles[i..j]
+    int[][] dp = new int[n][n];
+
+    for (int i = 0; i < n; ++i)
+      dp[i][i] = piles[i];
 
     for (int d = 1; d < n; ++d)
-      for (int j = n - 1; j - d >= 0; --j) {
-        final int i = j - d;
-        dp[j] = Math.max(piles[i] - dp[j], piles[j] - dp[j - 1]);
+      for (int i = 0; i + d < n; ++i) {
+        final int j = i + d;
+        dp[i][j] = Math.max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
       }
 
-    return dp[n - 1] > 0;
+    return dp[0][n - 1] > 0;
   }
 }
