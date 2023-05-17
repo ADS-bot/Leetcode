@@ -1,17 +1,16 @@
-var promisePool = async function(functions, n) {
+const promisePool = async function(functions, n) {
   const results = [];
   const inProgress = [];
   let i = 0;
 
   while (i < functions.length || inProgress.length > 0) {
     while (inProgress.length < n && i < functions.length) {
-      const promise = functions[i]();
       const index = i;
-      const resultPromise = promise.then((result) => {
+      const promise = functions[i]().then((result) => {
         results[index] = result;
-        inProgress.splice(inProgress.indexOf(resultPromise), 1);
+        inProgress.splice(inProgress.indexOf(promise), 1);
       });
-      inProgress.push(resultPromise);
+      inProgress.push(promise);
       i++;
     }
 
