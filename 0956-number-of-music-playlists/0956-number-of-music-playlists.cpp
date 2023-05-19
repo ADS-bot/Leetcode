@@ -1,29 +1,18 @@
 class Solution {
  public:
   int numMusicPlaylists(int n, int goal, int k) {
-    this->n = n;
-    this->k = k;
+    constexpr int kMod = 1'000'000'007;
     // dp[i][j] := # of playlists with i songs and j different songs
-    dp.resize(goal + 1, vector<long>(n + 1, -1));
-    return playlists(goal, n);
-  }
+    vector<vector<long>> dp(goal + 1, vector<long>(n + 1));
+    dp[0][0] = 1;
 
- private:
-  static constexpr int kMod = 1'000'000'007;
-  int n;
-  int k;
-  vector<vector<long>> dp;
+    for (int i = 1; i <= goal; ++i)
+      for (int j = 1; j <= n; ++j) {
+        dp[i][j] += dp[i - 1][j - 1] * (n - (j - 1));  // Last song is new
+        dp[i][j] += dp[i - 1][j] * max(0, j - k);      // Last song is old
+        dp[i][j] %= kMod;
+      }
 
-  long playlists(int i, int j) {
-    if (i == 0)
-      return j == 0;
-    if (j == 0)
-      return 0;
-    if (dp[i][j] >= 0)
-      return dp[i][j];
-
-    dp[i][j] = playlists(i - 1, j - 1) * (n - (j - 1));  // Last song is new
-    dp[i][j] += playlists(i - 1, j) * max(0, j - k);     // Last song is old
-    return dp[i][j] %= kMod;
+    return dp[goal][n];
   }
 };
