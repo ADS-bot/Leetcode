@@ -1,14 +1,14 @@
 class RecentCounter {
 public:
-    queue<int> q;
+    vector<int> s;
 
     RecentCounter() {
+
     }
 
     int ping(int t) {
-        q.push(t);
-        while (q.front() < t - 3000) q.pop();
-        return q.size();
+        s.push_back(t);
+        return s.size() - (lower_bound(s.begin(), s.end(), t - 3000) - s.begin());
     }
 };
 
