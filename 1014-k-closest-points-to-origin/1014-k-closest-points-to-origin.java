@@ -1,34 +1,22 @@
 class Solution {
   public int[][] kClosest(int[][] points, int k) {
-    quickSelect(points, 0, points.length - 1, k);
-    return Arrays.copyOfRange(points, 0, k);
-  }
+    int[][] ans = new int[k][2];
+    PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> squareDist(b) - squareDist(a));
 
-  private void quickSelect(int[][] points, int l, int r, int k) {
-    final int[] pivot = points[r];
+    for (int[] point : points) {
+      maxHeap.offer(point);
+      if (maxHeap.size() > k)
+        maxHeap.poll();
+    }
 
-    int nextSwapped = l;
-    for (int i = l; i < r; ++i)
-      if (squareDist(points[i]) <= squareDist(pivot))
-        swap(points, nextSwapped++, i);
-    swap(points, nextSwapped, r);
+    int i = k;
+    while (!maxHeap.isEmpty())
+      ans[--i] = maxHeap.poll();
 
-    final int count = nextSwapped - l + 1; // # of points <= pivot
-    if (count == k)
-      return;
-    if (count > k)
-      quickSelect(points, l, nextSwapped - 1, k);
-    else
-      quickSelect(points, nextSwapped + 1, r, k - count);
+    return ans;
   }
 
   private int squareDist(int[] p) {
     return p[0] * p[0] + p[1] * p[1];
-  }
-
-  private void swap(int[][] points, int i, int j) {
-    final int[] temp = points[i];
-    points[i] = points[j];
-    points[j] = temp;
   }
 }
