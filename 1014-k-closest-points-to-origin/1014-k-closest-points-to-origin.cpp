@@ -7,6 +7,8 @@ class Solution {
 
  private:
   void quickSelect(vector<vector<int>>& points, int l, int r, int k) {
+    const int randIndex = rand() % (r - l + 1) + l;
+    swap(points[randIndex], points[r]);
     const vector<int> pivot = points[r];
 
     int nextSwapped = l;
