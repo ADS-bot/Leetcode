@@ -5,8 +5,6 @@ class Solution {
   }
 
   private void quickSelect(int[][] points, int l, int r, int k) {
-    final int randIndex = new Random().nextInt(r - l + 1) + l;
-    swap(points, randIndex, r);
     final int[] pivot = points[r];
 
     int nextSwapped = l;
