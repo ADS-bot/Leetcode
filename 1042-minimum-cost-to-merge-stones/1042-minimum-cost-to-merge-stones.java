@@ -1,31 +1,39 @@
 class Solution {
-  public int mergeStones(int[] stones, int K) {
+  public int mergeStones(int[] stones, int k) {
     final int n = stones.length;
-    if ((n - 1) % (K - 1) != 0)
+    if ((n - 1) % (k - 1) != 0)
       return -1;
 
-    final int kMax = 1_000_000_000;
+    this.k = k;
 
     // dp[i][j] := min cost to merge stones[i..j]
-    int[][] dp = new int[n][n];
+    dp = new int[n][n];
     Arrays.stream(dp).forEach(A -> Arrays.fill(A, kMax));
-    int[] prefix = new int[n + 1];
-
-    for (int i = 0; i < n; ++i)
-      dp[i][i] = 0;
+    prefix = new int[n + 1];
 
     for (int i = 0; i < n; ++i)
       prefix[i + 1] = prefix[i] + stones[i];
 
-    for (int d = 1; d < n; ++d)
-      for (int i = 0; i + d < n; ++i) {
-        final int j = i + d;
-        for (int m = i; m < j; m += K - 1)
-          dp[i][j] = Math.min(dp[i][j], dp[i][m] + dp[m + 1][j]);
-        if (d % (K - 1) == 0)
-          dp[i][j] += prefix[j + 1] - prefix[i];
-      }
+    final int cost = mergeStones(stones, 0, n - 1);
+    return cost == kMax ? -1 : cost;
+  }
 
-    return dp[0][n - 1];
+  private static final int kMax = 1_000_000_000;
+  private int k;
+  private int[][] dp;
+  private int[] prefix;
+
+  private int mergeStones(final int[] stones, int i, int j) {
+    if (j - i + 1 < k)
+      return 0;
+    if (dp[i][j] != kMax)
+      return dp[i][j];
+
+    for (int m = i; m < j; m += k - 1)
+      dp[i][j] = Math.min(dp[i][j], mergeStones(stones, i, m) + mergeStones(stones, m + 1, j));
+    if ((j - i) % (k - 1) == 0)
+      dp[i][j] += prefix[j + 1] - prefix[i];
+
+    return dp[i][j];
   }
 }
