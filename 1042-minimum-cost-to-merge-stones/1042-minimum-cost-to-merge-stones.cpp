@@ -1,31 +1,40 @@
 class Solution {
  public:
-  int mergeStones(vector<int>& stones, int K) {
+  int mergeStones(vector<int>& stones, int k) {
     const int n = stones.size();
-    if ((n - 1) % (K - 1))
+    if ((n - 1) % (k - 1))
       return -1;
 
-    constexpr int kMax = 1'000'000'000;
+    this->k = k;
 
-    // dp[i][j][k] := min cost to merge stones[i..j] into k piles
-    vector<vector<vector<int>>> dp(
-        n, vector<vector<int>>(n, vector<int>(K + 1, kMax)));
-    vector<int> prefix(n + 1);
-
-    for (int i = 0; i < n; ++i)
-      dp[i][i][1] = 0;
+    // dp[i][j] := min cost to merge stones[i..j]
+    dp.resize(n, vector<int>(n, kMax));
+    prefix.resize(n + 1);
 
     partial_sum(begin(stones), end(stones), begin(prefix) + 1);
 
-    for (int d = 1; d < n; ++d)
-      for (int i = 0; i + d < n; ++i) {
-        const int j = i + d;
-        for (int k = 2; k <= K; ++k)  // Piles
-          for (int m = i; m < j; m += K - 1)
-            dp[i][j][k] = min(dp[i][j][k], dp[i][m][1] + dp[m + 1][j][k - 1]);
-        dp[i][j][1] = dp[i][j][K] + prefix[j + 1] - prefix[i];
-      }
+    const int cost = mergeStones(stones, 0, n - 1);
+    return cost == kMax ? -1 : cost;
+  }
 
-    return dp[0][n - 1][1];
+ private:
+  static constexpr int kMax = 1'000'000'000;
+  int k;
+  vector<vector<int>> dp;
+  vector<int> prefix;
+
+  int mergeStones(const vector<int>& stones, int i, int j) {
+    if (j - i + 1 < k)
+      return 0;
+    if (dp[i][j] != kMax)
+      return dp[i][j];
+
+    for (int m = i; m < j; m += k - 1)
+      dp[i][j] = min(dp[i][j],
+                     mergeStones(stones, i, m) + mergeStones(stones, m + 1, j));
+    if ((j - i) % (k - 1) == 0)
+      dp[i][j] += prefix[j + 1] - prefix[i];
+
+    return dp[i][j];
   }
 };
