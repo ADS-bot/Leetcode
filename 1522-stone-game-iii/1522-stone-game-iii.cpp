@@ -1,28 +1,20 @@
 class Solution {
  public:
   string stoneGameIII(vector<int>& stoneValue) {
+    const int n = stoneValue.size();
     // dp[i] := max "relative score" Alice can make w/ stoneValue[i:]
-    dp.resize(stoneValue.size(), INT_MIN);
+    vector<int> dp(n + 1, INT_MIN / 2);
+    dp.back() = 0;
 
-    const int score = stoneGameIII(stoneValue, 0);
-    return score > 0 ? "Alice" : score < 0 ? "Bob" : "Tie";
-  }
-
- private:
-  vector<int> dp;
-
-  int stoneGameIII(const vector<int>& stoneValue, int i) {
-    if (i == stoneValue.size())
-      return 0;
-    if (dp[i] > INT_MIN)
-      return dp[i];
-
-    int sum = 0;
-    for (int j = i; j < i + 3 && j < stoneValue.size(); ++j) {
-      sum += stoneValue[j];
-      dp[i] = max(dp[i], sum - stoneGameIII(stoneValue, j + 1));
+    for (int i = n - 1; i >= 0; --i) {
+      int sum = 0;
+      for (int j = i; j < i + 3 && j < n; ++j) {
+        sum += stoneValue[j];
+        dp[i] = max(dp[i], sum - dp[j + 1]);
+      }
     }
 
-    return dp[i];
-  };
+    const int score = dp[0];
+    return score > 0 ? "Alice" : score < 0 ? "Bob" : "Tie";
+  }
 };
