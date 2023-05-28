@@ -2,13 +2,11 @@ class Solution:
   def minCost(self, n: int, cuts: List[int]) -> int:
     A = sorted([0] + cuts + [n])
 
-    dp = [[0] * len(A) for _ in range(len(A))]
+    @functools.lru_cache(None)
+    def dp(i, j):
+      if j - i <= 1:
+        return 0
 
-    for d in range(2, len(A)):
-      for i in range(len(A) - d):
-        j = i + d
-        dp[i][j] = math.inf
-        for k in range(i + 1, j):
-          dp[i][j] = min(dp[i][j], A[j] - A[i] + dp[i][k] + dp[k][j])
+      return min(A[j] - A[i] + dp(i, k) + dp(k, j) for k in range(i + 1, j))
 
-    return dp[0][len(A) - 1]
+    return dp(0, len(A) - 1)
