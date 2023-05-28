@@ -6,25 +6,16 @@ class Solution {
     sort(begin(cuts), end(cuts));
 
     // dp[i][j] := minCost(cuts[i..j])
-    dp.resize(cuts.size(), vector<int>(cuts.size()));
-    return minCost(cuts, 0, cuts.size() - 1);
-  }
+    vector<vector<int>> dp(cuts.size(), vector<int>(cuts.size()));
 
- private:
-  vector<vector<int>> dp;
+    for (int d = 2; d < cuts.size(); ++d)
+      for (int i = 0; i + d < cuts.size(); ++i) {
+        const int j = i + d;
+        dp[i][j] = INT_MAX;
+        for (int k = i + 1; k < j; ++k)
+          dp[i][j] = min(dp[i][j], cuts[j] - cuts[i] + dp[i][k] + dp[k][j]);
+      }
 
-  int minCost(const vector<int>& cuts, int i, int j) {
-    if (j - i <= 1)
-      return 0;
-    if (dp[i][j] > 0)
-      return dp[i][j];
-
-    dp[i][j] = INT_MAX;
-
-    for (int k = i + 1; k < j; ++k)
-      dp[i][j] = min(dp[i][j], cuts[j] - cuts[i] + minCost(cuts, i, k) +
-                                   minCost(cuts, k, j));
-
-    return dp[i][j];
+    return dp[0][cuts.size() - 1];
   }
 };
