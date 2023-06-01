@@ -1,15 +1,9 @@
 class Solution:
   def longestStrChain(self, words: List[str]) -> int:
-    wordsSet = set(words)
+    dp = {}
 
-    # Dp(s) := longest chain where s is the last word
-    @functools.lru_cache(None)
-    def dp(s: str) -> int:
-      ans = 1
-      for i in range(len(s)):
-        pred = s[:i] + s[i + 1:]
-        if pred in wordsSet:
-          ans = max(ans, dp(pred) + 1)
-      return ans
+    for word in sorted(words, key=len):
+      dp[word] = max(dp.get(word[:i] + word[i + 1:], 0) +
+                     1 for i in range(len(word)))
 
-    return max(dp(word) for word in words)
+    return max(dp.values())
