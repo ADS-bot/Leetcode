@@ -1,21 +1,31 @@
 class Solution {
  public:
   int longestStrChain(vector<string>& words) {
+    const unordered_set<string> wordsSet{begin(words), end(words)};
     int ans = 0;
-    // dp[s] := longest string chain where s is the last word
-    unordered_map<string, int> dp;
 
-    sort(begin(words), end(words),
-         [](const auto& a, const auto& b) { return a.length() < b.length(); });
-
-    for (const string& word : words) {
-      for (int i = 0; i < word.length(); ++i) {
-        const string pred = word.substr(0, i) + word.substr(i + 1);
-        dp[word] = max(dp[word], (dp.count(pred) ? dp[pred] : 0) + 1);
-      }
-      ans = max(ans, dp[word]);
-    }
+    for (const string& word : words)
+      ans = max(ans, longestStrChain(word, wordsSet));
 
     return ans;
+  }
+
+ private:
+  // dp[s] := longest string chain where s is the last word
+  unordered_map<string, int> dp;
+
+  int longestStrChain(const string& s, const unordered_set<string>& wordsSet) {
+    if (const auto it = dp.find(s); it != cend(dp))
+      return it->second;
+
+    int ans = 1;
+
+    for (int i = 0; i < s.length(); ++i) {
+      const string pred = s.substr(0, i) + s.substr(i + 1);
+      if (wordsSet.count(pred))
+        ans = max(ans, longestStrChain(pred, wordsSet) + 1);
+    }
+
+    return dp[s] = ans;
   }
 };
