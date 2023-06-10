@@ -1,14 +1,25 @@
 class Solution:
   def mctFromLeafValues(self, arr: List[int]) -> int:
-    ans = 0
-    stack = [math.inf]
+    n = len(arr)
+    # dp[i][j] := min cost of arr[i..j]
+    dp = [[0] * n for _ in range(n)]
+    # maxVal[i][j] := max value of arr[i..j]
+    maxVal = [[0] * n for _ in range(n)]
 
-    for a in arr:
-      while stack and stack[-1] <= a:
-        mid = stack.pop()
-        # Multiply mid with next greater element in the array,
-        # On the left (stack[-1]) or on the right (current number a)
-        ans += min(stack[-1], a) * mid
-      stack.append(a)
+    for i in range(n):
+      maxVal[i][i] = arr[i]
 
-    return ans + sum(a * b for a, b in zip(stack[1:], stack[2:]))
+    for d in range(1, n):
+      for i in range(n - d):
+        j = i + d
+        maxVal[i][j] = max(maxVal[i][j - 1], maxVal[i + 1][j])
+
+    for d in range(1, n):
+      for i in range(n - d):
+        j = i + d
+        dp[i][j] = math.inf
+        for k in range(i, j):
+          dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j] +
+                         maxVal[i][k] * maxVal[k + 1][j])
+
+    return dp[0][-1]
