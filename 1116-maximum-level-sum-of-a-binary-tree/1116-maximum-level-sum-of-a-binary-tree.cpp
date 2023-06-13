@@ -1,27 +1,21 @@
 class Solution {
  public:
   int maxLevelSum(TreeNode* root) {
-    int ans = 1;
-    int maxLevelSum = INT_MIN;
-    queue<TreeNode*> q{{root}};
+    // levelSums[i] := sum of level (i + 1) (1-indexed)
+    vector<int> levelSums;
+    dfs(root, 0, levelSums);
+    return 1 + max_element(levelSums.begin(), levelSums.end()) -
+           levelSums.begin();
+  }
 
-    for (int level = 1; !q.empty(); ++level) {
-      int levelSum = 0;
-      for (int sz = q.size(); sz > 0; --sz) {
-        TreeNode* node = q.front();
-        q.pop();
-        levelSum += node->val;
-        if (node->left != nullptr)
-          q.push(node->left);
-        if (node->right != nullptr)
-          q.push(node->right);
-      }
-      if (maxLevelSum < levelSum) {
-        maxLevelSum = levelSum;
-        ans = level;
-      }
-    }
-
-    return ans;
+ private:
+  void dfs(TreeNode* root, int level, vector<int>& levelSums) {
+    if (root == nullptr)
+      return;
+    if (levelSums.size() == level)
+      levelSums.push_back(0);
+    levelSums[level] += root->val;
+    dfs(root->left, level + 1, levelSums);
+    dfs(root->right, level + 1, levelSums);
   }
 };
