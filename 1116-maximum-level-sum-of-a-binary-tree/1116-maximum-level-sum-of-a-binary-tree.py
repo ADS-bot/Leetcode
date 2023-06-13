@@ -1,16 +1,22 @@
 class Solution:
   def maxLevelSum(self, root: Optional[TreeNode]) -> int:
-    # levelSums[i] := sum of level (i + 1) (1-indexed)
-    levelSums = []
+    ans = 1
+    maxLevelSum = -math.inf
+    q = collections.deque([root])
 
-    def dfs(root: Optional[TreeNode], level: int) -> None:
-      if not root:
-        return
-      if len(levelSums) == level:
-        levelSums.append(0)
-      levelSums[level] += root.val
-      dfs(root.left, level + 1)
-      dfs(root.right, level + 1)
+    level = 1
+    while q:
+      levelSum = 0
+      for _ in range(len(q)):
+        node = q.popleft()
+        levelSum += node.val
+        if node.left:
+          q.append(node.left)
+        if node.right:
+          q.append(node.right)
+      if maxLevelSum < levelSum:
+        maxLevelSum = levelSum
+        ans = level
+      level += 1
 
-    dfs(root, 0)
-    return 1 + levelSums.index(max(levelSums))
+    return ans
