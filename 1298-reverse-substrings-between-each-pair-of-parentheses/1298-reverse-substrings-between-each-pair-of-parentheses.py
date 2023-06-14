@@ -1,16 +1,25 @@
 class Solution:
   def reverseParentheses(self, s: str) -> str:
-    stack = []
     ans = []
+    stack = []
+    pair = {}
 
-    for c in s:
+    for i, c in enumerate(s):
       if c == '(':
-        stack.append(len(ans))
+        stack.append(i)
       elif c == ')':
-        # Reverse the corresponding substring between ().
         j = stack.pop()
-        ans[j:] = ans[j:][::-1]
+        pair[i] = j
+        pair[j] = i
+
+    i = 0
+    d = 1
+    while i < len(s):
+      if s[i] in '()':
+        i = pair[i]
+        d = -d
       else:
-        ans.append(c)
+        ans.append(s[i])
+      i += d
 
     return ''.join(ans)
