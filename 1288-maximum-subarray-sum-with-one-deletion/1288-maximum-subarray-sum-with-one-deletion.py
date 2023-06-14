@@ -1,14 +1,13 @@
 class Solution:
   # Very similar to 53. Maximum Subarray
   def maximumSum(self, arr: List[int]) -> int:
-    # dp[0][i] := max sum subarray ending w/ i (no deletion)
-    # dp[1][i] := max sum subarray ending w/ i (at most 1 deletion)
-    dp = [[0] * len(arr) for _ in range(2)]
+    ans = -math.inf
+    zero = -math.inf  # No deletion.
+    one = -math.inf   # At most 1 deletion.
 
-    dp[0][0] = arr[0]
-    dp[1][0] = arr[0]
-    for i in range(1, len(arr)):
-      dp[0][i] = max(arr[i], dp[0][i - 1] + arr[i])
-      dp[1][i] = max(arr[i], dp[1][i - 1] + arr[i], dp[0][i - 1])
+    for a in arr:
+      one = max(a, one + a, zero)
+      zero = max(a, zero + a)
+      ans = max(ans, one)
 
-    return max(dp[1])
+    return ans
