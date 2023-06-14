@@ -2,18 +2,17 @@ class Solution {
  public:
   // Very similar to 53. Maximum Subarray
   int maximumSum(vector<int>& arr) {
-    // dp[0][i] := max sum subarray ending w/ i (no deletion)
-    // dp[1][i] := max sum subarray ending w/ i (at most 1 deletion)
-    vector<vector<int>> dp(2, vector<int>(arr.size()));
+    constexpr int kMin = INT_MIN / 2;
+    int ans = kMin;
+    int zero = kMin;  // No deletion.
+    int one = kMin;   // At most 1 deletion.
 
-    dp[0][0] = arr[0];
-    dp[1][0] = arr[0];
-    for (int i = 1; i < arr.size(); ++i) {
-      dp[0][i] = max(arr[i], dp[0][i - 1] + arr[i]);
-      dp[1][i] =
-          max({arr[i], dp[1][i - 1] + arr[i], dp[0][i - 1] /*delete arr[i]*/});
+    for (const int a : arr) {
+      one = max({a, one + a, zero /*delete a*/});
+      zero = max(a, zero + a);
+      ans = max(ans, one);
     }
 
-    return *max_element(dp[1].begin(), dp[1].end());
+    return ans;
   }
 };
