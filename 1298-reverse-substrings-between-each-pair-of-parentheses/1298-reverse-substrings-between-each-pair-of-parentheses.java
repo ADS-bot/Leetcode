@@ -1,24 +1,21 @@
 class Solution {
   public String reverseParentheses(String s) {
-    StringBuilder sb = new StringBuilder();
     Deque<Integer> stack = new ArrayDeque<>();
-    Map<Integer, Integer> pair = new HashMap<>();
+    StringBuilder sb = new StringBuilder();
 
-    for (int i = 0; i < s.length(); ++i)
-      if (s.charAt(i) == '(') {
-        stack.push(i);
-      } else if (s.charAt(i) == ')') {
-        final int j = stack.pop();
-        pair.put(i, j);
-        pair.put(j, i);
-      }
-
-    for (int i = 0, d = 1; i < s.length(); i += d)
-      if (s.charAt(i) == '(' || s.charAt(i) == ')') {
-        i = pair.get(i);
-        d = -d;
+    for (final char c : s.toCharArray())
+      if (c == '(') {
+        stack.push(sb.length());
+      } else if (c == ')') {
+        // Reverse the corresponding substring between ().
+        StringBuilder reversed = new StringBuilder();
+        for (int sz = sb.length() - stack.poll(); sz > 0; --sz) {
+          reversed.append(sb.charAt(sb.length() - 1));
+          sb.deleteCharAt(sb.length() - 1);
+        }
+        sb.append(reversed);
       } else {
-        sb.append(s.charAt(i));
+        sb.append(c);
       }
 
     return sb.toString();
