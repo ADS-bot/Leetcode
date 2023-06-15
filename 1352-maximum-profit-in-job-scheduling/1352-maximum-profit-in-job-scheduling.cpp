@@ -12,7 +12,7 @@ class Solution {
                     vector<int>& profit) {
     const int n = startTime.size();
     // dp[i] := max profit to schedule jobs[i:]
-    dp.resize(n + 1);
+    vector<int> dp(n + 1);
     vector<Job> jobs;
 
     for (int i = 0; i < n; ++i)
@@ -26,23 +26,14 @@ class Solution {
     for (int i = 0; i < n; ++i)
       startTime[i] = jobs[i].startTime;
 
-    return jobScheduling(jobs, startTime, 0);
-  }
+    for (int i = n - 1; i >= 0; --i) {
+      const int j = firstGreaterEqual(startTime, i + 1, jobs[i].endTime);
+      const int pick = jobs[i].profit + dp[j];
+      const int skip = dp[i + 1];
+      dp[i] = max(pick, skip);
+    }
 
- private:
-  vector<int> dp;
-
-  int jobScheduling(const vector<Job>& jobs, const vector<int>& startTime,
-                    int i) {
-    if (i == jobs.size())
-      return 0;
-    if (dp[i] > 0)
-      return dp[i];
-
-    const int j = firstGreaterEqual(startTime, i + 1, jobs[i].endTime);
-    const int pick = jobs[i].profit + jobScheduling(jobs, startTime, j);
-    const int skip = jobScheduling(jobs, startTime, i + 1);
-    return dp[i] = max(pick, skip);
+    return dp[0];
   }
 
   int firstGreaterEqual(const vector<int>& A, int startFrom, int target) {
