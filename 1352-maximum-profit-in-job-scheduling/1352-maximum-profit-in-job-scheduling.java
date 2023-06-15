@@ -12,7 +12,8 @@ class Job {
 class Solution {
   public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
     final int n = startTime.length;
-
+    // dp[i] := max profit to schedule jobs[i:]
+    int[] dp = new int[n + 1];
     Job[] jobs = new Job[n];
 
     for (int i = 0; i < n; ++i)
@@ -24,22 +25,26 @@ class Solution {
     for (int i = 0; i < n; ++i)
       startTime[i] = jobs[i].startTime;
 
-    return getMaxProfit(jobs);
-  }
-
-  private int getMaxProfit(Job[] jobs) {
-    int maxProfit = 0;
-    Queue<Job> minHeap = new PriorityQueue<>((a, b) -> a.endTime - b.endTime);
-
-    for (Job job : jobs) {
-      while (!minHeap.isEmpty() && job.startTime >= minHeap.peek().endTime)
-        maxProfit = Math.max(maxProfit, minHeap.poll().profit);
-      minHeap.offer(new Job(job.startTime, job.endTime, job.profit + maxProfit));
+    for (int i = n - 1; i >= 0; --i) {
+      final int j = firstGreaterEqual(startTime, i + 1, jobs[i].endTime);
+      final int pick = jobs[i].profit + dp[j];
+      final int skip = dp[i + 1];
+      dp[i] = Math.max(pick, skip);
     }
 
-    while (!minHeap.isEmpty())
-      maxProfit = Math.max(maxProfit, minHeap.poll().profit);
+    return dp[0];
+  }
 
-    return maxProfit;
+  private int firstGreaterEqual(int[] A, int startFrom, int target) {
+    int l = startFrom;
+    int r = A.length;
+    while (l < r) {
+      final int m = (l + r) / 2;
+      if (A[m] >= target)
+        r = m;
+      else
+        l = m + 1;
+    }
+    return l;
   }
 }
