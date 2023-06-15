@@ -13,7 +13,7 @@ class Solution {
   public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
     final int n = startTime.length;
     // dp[i] := max profit to schedule jobs[i:]
-    int[] dp = new int[n + 1];
+    dp = new int[n + 1];
     Job[] jobs = new Job[n];
 
     for (int i = 0; i < n; ++i)
@@ -25,14 +25,21 @@ class Solution {
     for (int i = 0; i < n; ++i)
       startTime[i] = jobs[i].startTime;
 
-    for (int i = n - 1; i >= 0; --i) {
-      final int j = firstGreaterEqual(startTime, i + 1, jobs[i].endTime);
-      final int pick = jobs[i].profit + dp[j];
-      final int skip = dp[i + 1];
-      dp[i] = Math.max(pick, skip);
-    }
+    return jobScheduling(jobs, startTime, 0);
+  }
 
-    return dp[0];
+  private int[] dp;
+
+  private int jobScheduling(Job[] jobs, int[] startTime, int i) {
+    if (i == jobs.length)
+      return 0;
+    if (dp[i] > 0)
+      return dp[i];
+
+    final int j = firstGreaterEqual(startTime, i + 1, jobs[i].endTime);
+    final int pick = jobs[i].profit + jobScheduling(jobs, startTime, j);
+    final int skip = jobScheduling(jobs, startTime, i + 1);
+    return dp[i] = Math.max(pick, skip);
   }
 
   private int firstGreaterEqual(int[] A, int startFrom, int target) {
