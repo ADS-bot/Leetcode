@@ -10,33 +10,35 @@ class Solution {
  public:
   int jobScheduling(vector<int>& startTime, vector<int>& endTime,
                     vector<int>& profit) {
-    const int n = startTime.size();
-    // dp[i] := max profit to schedule jobs[i:]
-    vector<int> dp(n + 1);
     vector<Job> jobs;
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < startTime.size(); ++i)
       jobs.emplace_back(startTime[i], endTime[i], profit[i]);
 
     sort(jobs.begin(), jobs.end(), [](const auto& a, const auto& b) {
       return a.startTime < b.startTime;
     });
 
-    // Will use binary search to find the first available startTime
-    for (int i = 0; i < n; ++i)
-      startTime[i] = jobs[i].startTime;
-
-    for (int i = n - 1; i >= 0; --i) {
-      const int j = firstGreaterEqual(startTime, i + 1, jobs[i].endTime);
-      const int pick = jobs[i].profit + dp[j];
-      const int skip = dp[i + 1];
-      dp[i] = max(pick, skip);
-    }
-
-    return dp[0];
+    return getMaxProfit(jobs);
   }
 
-  int firstGreaterEqual(const vector<int>& A, int startFrom, int target) {
-    return lower_bound(A.begin() + startFrom, A.end(), target) - A.begin();
+ private:
+  int getMaxProfit(const vector<Job>& jobs) {
+    int maxProfit = 0;
+    auto compare = [](const Job& a, const Job& b) {
+      return a.endTime > b.endTime;
+    };
+    priority_queue<Job, vector<Job>, decltype(compare)> minHeap(compare);
+
+    for (const auto& [s, e, p] : jobs) {
+      while (!minHeap.empty() && s >= minHeap.top().endTime)
+        maxProfit = max(maxProfit, minHeap.top().profit), minHeap.pop();
+      minHeap.emplace(s, e, p + maxProfit);
+    }
+
+    while (!minHeap.empty())
+      maxProfit = max(maxProfit, minHeap.top().profit), minHeap.pop();
+
+    return maxProfit;
   }
 };
