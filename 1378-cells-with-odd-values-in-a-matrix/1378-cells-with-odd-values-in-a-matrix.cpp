@@ -1,20 +1,19 @@
 class Solution {
  public:
   int oddCells(int m, int n, vector<vector<int>>& indices) {
-    // rows[i] and cols[i] :=
-    //   true (flipped even times) / false (flipped odd times)
-    vector<bool> rows(m);
-    vector<bool> cols(n);
+    unordered_set<int> oddRows;
+    unordered_set<int> oddCols;
 
     for (const vector<int>& index : indices) {
-      rows[index[0]] = rows[index[0]] ^ true;
-      cols[index[1]] = cols[index[1]] ^ true;
+      const int r = index[0];
+      const int c = index[1];
+      if (!oddRows.insert(r).second)
+        oddRows.erase(r);
+      if (!oddCols.insert(c).second)
+        oddCols.erase(c);
     }
 
-    const int oddRowsCount = count(rows.begin(), rows.end(), true);
-    const int oddColsCount = count(cols.begin(), cols.end(), true);
-    const int evenRowsCount = m - oddRowsCount;
-    const int evenColsCount = n - oddColsCount;
-    return oddRowsCount * evenColsCount + oddColsCount * evenRowsCount;
+    return oddRows.size() * (n - oddCols.size()) +
+           oddCols.size() * (m - oddRows.size());
   }
 };
