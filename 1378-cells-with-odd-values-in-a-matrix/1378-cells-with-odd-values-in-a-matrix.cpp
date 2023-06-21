@@ -1,7 +1,6 @@
 class Solution {
  public:
   int oddCells(int m, int n, vector<vector<int>>& indices) {
-    int ans = 0;
     // rows[i] and cols[i] :=
     //   true (flipped even times) / false (flipped odd times)
     vector<bool> rows(m);
@@ -12,10 +11,10 @@ class Solution {
       cols[index[1]] = cols[index[1]] ^ true;
     }
 
-    for (int i = 0; i < m; ++i)
-      for (int j = 0; j < n; ++j)
-        ans += rows[i] ^ cols[j];
-
-    return ans;
+    const int oddRowsCount = count(rows.begin(), rows.end(), true);
+    const int oddColsCount = count(cols.begin(), cols.end(), true);
+    const int evenRowsCount = m - oddRowsCount;
+    const int evenColsCount = n - oddColsCount;
+    return oddRowsCount * evenColsCount + oddColsCount * evenRowsCount;
   }
 };
