@@ -1,7 +1,7 @@
 class Solution:
   def oddCells(self, m: int, n: int, indices: List[List[int]]) -> int:
     # rows[i] and cols[i] :=
-    #   true (flipped even times) / false (flipped odd times)
+    #   True (flipped even times) // False (flipped odd times)
     rows = [False] * m
     cols = [False] * n
 
@@ -9,6 +9,8 @@ class Solution:
       rows[r] ^= True
       cols[c] ^= True
 
-    return sum(rows[i] ^ cols[j]
-               for i in range(m)
-               for j in range(n))
+    oddRowsCount = rows.count(True)
+    oddColsCount = cols.count(True)
+    evenRowsCount = m - oddRowsCount
+    evenColsCount = n - oddColsCount
+    return oddRowsCount * evenColsCount + oddColsCount * evenRowsCount
