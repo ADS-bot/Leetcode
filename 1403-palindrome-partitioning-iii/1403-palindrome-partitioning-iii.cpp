@@ -1,34 +1,24 @@
 class Solution {
  public:
-  int palindromePartition(string s, int k) {
+  int palindromePartition(string s, int K) {
     const int n = s.length();
     // dp[i][k] := min cost to make k palindromes by s[0..i)
-    dp.resize(n + 1, vector<int>(k + 1, n));
+    vector<vector<int>> dp(n + 1, vector<int>(K + 1, n));
     // cost[i][j] := min cost to make s[i..j] palindrome
-    cost.resize(n, vector<int>(n));
+    vector<vector<int>> cost(n, vector<int>(n));
 
     for (int d = 1; d < n; ++d)
       for (int i = 0, j = d; j < n; ++i, ++j)
         cost[i][j] = (s[i] != s[j]) + cost[i + 1][j - 1];
 
-    return palindromePartition(n, k);
-  }
+    for (int i = 1; i <= n; ++i)
+      dp[i][1] = cost[0][i - 1];
 
- private:
-  vector<vector<int>> dp;
-  vector<vector<int>> cost;
+    for (int k = 2; k <= K; ++k)
+      for (int i = k; i <= n; ++i)
+        for (int j = k - 1; j < i; ++j)
+          dp[i][k] = min(dp[i][k], dp[j][k - 1] + cost[j][i - 1]);
 
-  int palindromePartition(int n, int k) {
-    if (k == 1)
-      return cost[0][n - 1];
-    int& ans = dp[n][k];
-    if (ans < n)
-      return ans;
-
-    // Try all possible partitions
-    for (int i = k - 1; i < n; ++i)
-      ans = min(ans, palindromePartition(i, k - 1) + cost[i][n - 1]);
-
-    return ans;
+    return dp[n][K];
   }
 };
