@@ -2,15 +2,12 @@ class Solution:
   # Similar to 3. Longest SubWithout Repeating Characters
   def numberOfSubstrings(self, s: str) -> int:
     ans = 0
-    count = {c: 0 for c in 'abc'}
+    # lastSeen[c] := index of last c appeared.
+    lastSeen = {c: -1 for c in 'abc'}
 
-    l = 0
-    for c in s:
-      count[c] += 1
-      while min(count.values()) > 0:
-        count[s[l]] -= 1
-        l += 1
-      # s[0..r], s[1..r], ..., s[l - 1..r] are satified strings.
-      ans += l
+    for i, c in enumerate(s):
+      lastSeen[c] = i
+      # s[0..i], s[1..i], s[min(lastSeen)..i] are satisfied strings.
+      ans += 1 + min(lastSeen.values())
 
     return ans
