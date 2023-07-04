@@ -4,7 +4,7 @@ class Solution:
     twos = 0
 
     for num in nums:
-      ones ^= num & ~twos
-      twos ^= num & ~ones
+      ones ^= (num & ~twos)
+      twos ^= (num & ~ones)
 
     return ones
