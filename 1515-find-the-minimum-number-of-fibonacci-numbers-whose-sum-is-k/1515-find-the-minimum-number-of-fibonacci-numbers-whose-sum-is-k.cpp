@@ -1,9 +1,7 @@
 class Solution {
  public:
   int findMinFibonacciNumbers(int k) {
-    if (k < 2)  // k == 0 || k == 1
-      return k;
-
+    int ans = 0;
     int a = 1;  // F_1
     int b = 1;  // F_2
 
@@ -15,6 +13,18 @@ class Solution {
       b = a + temp;
     }
 
-    return 1 + findMinFibonacciNumbers(k - a);
+    while (a > 0) {
+      if (a <= k) {
+        k -= a;
+        ++ans;
+      }
+      //    a, b = F_{i + 2}, F_{i + 3}
+      // -> a, b = F_{i + 1}, F_{i + 2}
+      const int temp = a;
+      a = b - a;
+      b = temp;
+    }
+
+    return ans;
   }
 };
