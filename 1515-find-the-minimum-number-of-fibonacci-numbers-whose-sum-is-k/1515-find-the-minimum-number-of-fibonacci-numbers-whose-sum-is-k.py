@@ -1,8 +1,6 @@
 class Solution:
   def findMinFibonacciNumbers(self, k: int) -> int:
-    if k < 2:  # k == 0 or k == 1
-      return k
-
+    ans = 0
     a = 1  # F_1
     b = 1  # F_2
 
@@ -11,4 +9,12 @@ class Solution:
       # -> a, b = F_{i + 2}, F_{i + 3}
       a, b = b, a + b
 
-    return 1 + self.findMinFibonacciNumbers(k - a)
+    while a > 0:
+      if a <= k:
+        k -= a
+        ans += 1
+      #    a, b = F_{i + 2}, F_{i + 3}
+      # -> a, b = F_{i + 1}, F_{i + 2}
+      a, b = b - a, a
+
+    return ans
