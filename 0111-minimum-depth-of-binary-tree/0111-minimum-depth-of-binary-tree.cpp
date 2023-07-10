@@ -3,10 +3,24 @@ class Solution {
   int minDepth(TreeNode* root) {
     if (root == nullptr)
       return 0;
-    if (root->left == nullptr)
-      return minDepth(root->right) + 1;
-    if (root->right == nullptr)
-      return minDepth(root->left) + 1;
-    return min(minDepth(root->left), minDepth(root->right)) + 1;
+
+    int ans = 0;
+    queue<TreeNode*> q{{root}};
+
+    while (!q.empty()) {
+      ++ans;
+      for (int sz = q.size(); sz > 0; --sz) {
+        TreeNode* node = q.front();
+        q.pop();
+        if (node->left == nullptr && node->right == nullptr)
+          return ans;
+        if (node->left)
+          q.push(node->left);
+        if (node->right)
+          q.push(node->right);
+      }
+    }
+
+    throw;
   }
 };
