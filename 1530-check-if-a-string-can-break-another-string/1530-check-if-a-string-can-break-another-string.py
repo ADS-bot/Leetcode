@@ -1,16 +1,10 @@
 class Solution:
   def checkIfCanBreak(self, s1: str, s2: str) -> bool:
-    count1 = collections.Counter(s1)
-    count2 = collections.Counter(s2)
+    count = collections.Counter(s1)
+    count.subtract(collections.Counter(s2))
 
-    # Returns True if count1 can break count2.
-    def canBreak(count1: Dict[str, int], count2: Dict[str, int]) -> bool:
-      diff = 0
-      for c in string.ascii_lowercase:
-        diff += count2[c] - count1[c]
-        # count2 is alphabetically greater than count1.
-        if diff < 0:
-          return False
-      return True
+    for a, b in itertools.pairwise(string.ascii_lowercase):
+      count[b] += count[a]
 
-    return canBreak(count1, count2) or canBreak(count2, count1)
+    return all(value <= 0 for value in count.values()) or \
+        all(value >= 0 for value in count.values())
