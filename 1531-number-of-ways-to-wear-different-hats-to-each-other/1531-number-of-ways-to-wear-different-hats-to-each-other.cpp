@@ -1,46 +1,35 @@
 class Solution {
  public:
   int numberWays(vector<vector<int>>& hats) {
+    constexpr int kMod = 1'000'000'007;
     constexpr int nHats = 40;
     const int nPeople = hats.size();
-    hatToPeople.resize(nHats + 1);
+    const int nAssignments = 1 << nPeople;
+    vector<vector<int>> hatToPeople(nHats + 1);
     // dp[i][j] := # of ways to assign hats 1, 2, ..., i to people in mask j
-    dp.resize(nHats + 1, vector<int>(1 << nPeople, -1));
+    vector<vector<int>> dp(nHats + 1, vector<int>(nAssignments));
+    dp[0][0] = 1;
 
     for (int i = 0; i < nPeople; ++i)
       for (const int hat : hats[i])
         hatToPeople[hat].push_back(i);
 
-    return ways(hats, 0, 1);
-  }
+    for (int h = 1; h <= nHats; ++h)
+      // For each assignment j of people
+      for (int j = 0; j < nAssignments; ++j) {
+        // We can cover the assignment j in 2 ways
+        // (1) by first h - 1 hats (i.e., w/o hat h)
+        dp[h][j] += dp[h - 1][j];
+        dp[h][j] %= kMod;
+        for (const int p : hatToPeople[h])
+          if (j & 1 << p) {
+            // (2) by first h - 1 hats assigned to people w/o person p and
+            //     hat h assigned to person p
+            dp[h][j] += dp[h - 1][j ^ 1 << p];
+            dp[h][j] %= kMod;
+          }
+      }
 
- private:
-  static constexpr int kMod = 1'000'000'007;
-  vector<vector<int>> hatToPeople;
-  vector<vector<int>> dp;
-
-  int ways(const vector<vector<int>>& hats, int assignment, int h) {
-    // All people are assigned
-    if (assignment == (1 << hats.size()) - 1)
-      return 1;
-    if (h > 40)
-      return 0;
-    if (dp[h][assignment] != -1)
-      return dp[h][assignment];
-
-    // don't wear hat h
-    int ans = ways(hats, assignment, h + 1);
-
-    for (const int p : hatToPeople[h]) {
-      // Person p was assigned hat h before
-      if (assignment & 1 << p)
-        continue;
-
-      // Assigned hat h to person p
-      ans += ways(hats, assignment | 1 << p, h + 1);
-      ans %= kMod;
-    }
-
-    return dp[h][assignment] = ans;
+    return dp[nHats][nAssignments - 1];
   }
 };
