@@ -1,16 +1,26 @@
 class Solution {
   public boolean checkIfCanBreak(String s1, String s2) {
-    int[] count = new int[26];
+    int[] count1 = new int[26];
+    int[] count2 = new int[26];
 
     for (final char c : s1.toCharArray())
-      ++count[c - 'a'];
+      ++count1[c - 'a'];
 
     for (final char c : s2.toCharArray())
-      --count[c - 'a'];
+      ++count2[c - 'a'];
 
-    for (int i = 1; i < 26; ++i)
-      count[i] += count[i - 1];
+    return canBreak(count1, count2) || canBreak(count2, count1);
+  }
 
-    return Arrays.stream(count).allMatch(c -> c <= 0) || Arrays.stream(count).allMatch(c -> c >= 0);
+  // Returns True if count1 can break count2.
+  private boolean canBreak(int[] count1, int[] count2) {
+    int diff = 0;
+    for (int i = 0; i < 26; ++i) {
+      diff += count2[i] - count1[i];
+      // count2 is alphabetically greater than count1.
+      if (diff < 0)
+        return false;
+    }
+    return true;
   }
 }
