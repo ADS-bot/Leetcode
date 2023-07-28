@@ -2,21 +2,25 @@ class Solution {
   public int waysToMakeFair(int[] nums) {
     final int n = nums.length;
     int ans = 0;
-    // l[0] := sum of even-indexed nums[0..i)
-    // l[1] := sum of odd-indexed nums[0..i)
-    // r[0] := sum of even-indexed nums[i + 1..n)
-    // r[1] := sum of odd-indexed nums[i + 1..n)
-    int[] l = new int[2];
-    int[] r = new int[2];
+    int[] even = new int[n + 1]; // Sum of even-indexed nums[0..i)
+    int[] odd = new int[n + 1];  // Sum of odd-indexed nums[0..i)
 
-    for (int i = 0; i < n; ++i)
-      r[i % 2] += nums[i];
+    for (int i = 1; i <= n; ++i) {
+      odd[i] = odd[i - 1];
+      even[i] = even[i - 1];
+      if (i % 2 == 0)
+        even[i] += nums[i - 1];
+      else
+        odd[i] += nums[i - 1];
+    }
+
+    final int sum = even[n] + odd[n];
 
     for (int i = 0; i < n; ++i) {
-      r[i % 2] -= nums[i];
-      if (l[0] + r[1] == l[1] + r[0])
+      final int evenSum = even[i] + odd[n] - odd[i + 1];
+      final int oddSum = sum - nums[i] - evenSum;
+      if (evenSum == oddSum)
         ++ans;
-      l[i % 2] += nums[i];
     }
 
     return ans;
