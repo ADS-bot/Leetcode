@@ -1,87 +1,76 @@
-template <typename T>
-class RangeQuery {
- public:
-  virtual void update(int index, int val);
-  virtual T query(int i, int j);
-
- private:
-  virtual T merge(T a, T b);
-
- protected:
-  int left(int treeIndex) {
-    return 2 * treeIndex + 1;
-  }
-
-  int right(int treeIndex) {
-    return 2 * treeIndex + 2;
-  }
-};
-
-class SegmentTree : RangeQuery<int> {
- public:
-  explicit SegmentTree(int n) : n(n), tree(4 * n) {}
-
-  // Updates nums[i] to val equivalently.
-  void update(int i, int val) override {
-    update(0, 0, n - 1, i, val);
-  }
-
-  // Returns sum(nums[i..j]).
-  int query(int i, int j) override {
-    return query(0, 0, n - 1, i, j);
-  }
-
- private:
-  const int n;       // size of the input array
-  vector<int> tree;  // segment tree
-
-  void update(int treeIndex, int lo, int hi, int i, int val) {
-    if (lo == i && hi == i) {
-      tree[treeIndex] += val;
-      return;
-    }
-    const int mid = (lo + hi) / 2;
-    const int leftTreeIndex = left(treeIndex);
-    const int rightTreeIndex = right(treeIndex);
-    if (i <= mid)
-      update(leftTreeIndex, lo, mid, i, val);
-    else
-      update(rightTreeIndex, mid + 1, hi, i, val);
-    tree[treeIndex] = merge(tree[leftTreeIndex], tree[rightTreeIndex]);
-  }
-
-  int query(int treeIndex, int lo, int hi, int i, int j) {
-    // [lo, hi] lies completely inside [i, j].
-    if (i <= lo && hi <= j)
-      return tree[treeIndex];
-    // [lo, hi] lies completely outside [i, j].
-    if (j < lo || hi < i)
-      return 0;
-    const int mid = (lo + hi) / 2;
-    return merge(query(left(treeIndex), lo, mid, i, j),
-                 query(right(treeIndex), mid + 1, hi, i, j));
-  }
-
-  // Merges the result of left node and right node.
-  int merge(int a, int b) override {
-    return a + b;
-  }
+struct Item {
+  int num;
+  int index;
 };
 
 class Solution {
  public:
   int createSortedArray(vector<int>& instructions) {
     constexpr int kMod = 1'000'000'007;
-    const int max = *max_element(instructions.begin(), instructions.end());
+    const int n = instructions.size();
     int ans = 0;
-    SegmentTree tree(max + 1);
+    vector<Item> items;
+    vector<int> lesser(n);   // lesser[i] := # of nums < instructions[i]
+    vector<int> greater(n);  // greater[i] := # of nums > instructions[i]
 
-    for (const int i : instructions) {
-      ans += min(tree.query(0, i - 1), tree.query(i + 1, max));
+    for (int i = 0; i < n; ++i)
+      items.push_back({instructions[i], i});
+
+    mergeSort(items, 0, n - 1, lesser, greater);
+
+    for (int i = 0; i < n; ++i) {
+      ans += min(lesser[i], greater[i]);
       ans %= kMod;
-      tree.update(i, 1);
     }
 
     return ans;
+  }
+
+ private:
+  void mergeSort(vector<Item>& items, int l, int r, vector<int>& lesser,
+                 vector<int>& greater) {
+    if (l >= r)
+      return;
+
+    const int m = (l + r) / 2;
+    mergeSort(items, l, m, lesser, greater);
+    mergeSort(items, m + 1, r, lesser, greater);
+    merge(items, l, m, r, lesser, greater);
+  }
+
+  void merge(vector<Item>& items, int l, int m, int r, vector<int>& lesser,
+             vector<int>& greater) {
+    int lo = l;  // 1st index s.t. items[lo].num >= items[i].num
+    int hi = l;  // 1st index s.t. items[hi].num > items[i].num
+
+    for (int i = m + 1; i <= r; ++i) {
+      while (lo <= m && items[lo].num < items[i].num)
+        ++lo;
+      while (hi <= m && items[hi].num <= items[i].num)
+        ++hi;
+      lesser[items[i].index] += lo - l;
+      greater[items[i].index] += m - hi + 1;
+    }
+
+    vector<Item> sorted(r - l + 1);
+    int k = 0;      // sorted's index
+    int i = l;      // left's index
+    int j = m + 1;  // right's index
+
+    while (i <= m && j <= r)
+      if (items[i].num < items[j].num)
+        sorted[k++] = items[i++];
+      else
+        sorted[k++] = items[j++];
+
+    // Put the possible remaining left part into the sorted array.
+    while (i <= m)
+      sorted[k++] = items[i++];
+
+    // Put the possible remaining right part into the sorted array.
+    while (j <= r)
+      sorted[k++] = items[j++];
+
+    copy(sorted.begin(), sorted.end(), items.begin() + l);
   }
 };
