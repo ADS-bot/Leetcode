@@ -3,25 +3,21 @@ class Solution {
   int waysToMakeFair(vector<int>& nums) {
     const int n = nums.size();
     int ans = 0;
-    vector<int> even(n + 1);  // Sum of even-indexed nums[0..i)
-    vector<int> odd(n + 1);   // Sum of odd-indexed nums[0..i)
+    // l[0] := sum of even-indexed nums[0..i)
+    // l[1] := sum of odd-indexed nums[0..i)
+    // r[0] := sum of even-indexed nums[i + 1..n)
+    // r[1] := sum of odd-indexed nums[i + 1..n)
+    vector<int> l(2);
+    vector<int> r(2);
 
-    for (int i = 1; i <= n; ++i) {
-      odd[i] = odd[i - 1];
-      even[i] = even[i - 1];
-      if (i % 2 == 0)
-        even[i] += nums[i - 1];
-      else
-        odd[i] += nums[i - 1];
-    }
-
-    const int sum = even.back() + odd.back();
+    for (int i = 0; i < n; ++i)
+      r[i % 2] += nums[i];
 
     for (int i = 0; i < n; ++i) {
-      const int evenSum = even[i] + odd.back() - odd[i + 1];
-      const int oddSum = sum - nums[i] - evenSum;
-      if (evenSum == oddSum)
+      r[i % 2] -= nums[i];
+      if (l[0] + r[1] == l[1] + r[0])
         ++ans;
+      l[i % 2] += nums[i];
     }
 
     return ans;
