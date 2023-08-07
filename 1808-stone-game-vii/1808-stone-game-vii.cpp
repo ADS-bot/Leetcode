@@ -3,30 +3,18 @@ class Solution {
   int stoneGameVII(vector<int>& stones) {
     const int n = stones.size();
     // dp[i][j] := max score you can get more than your opponent in stones[i..j]
-    dp.resize(n, vector<int>(n));
-    prefix.resize(n + 1);
+    vector<vector<int>> dp(n, vector<int>(n));
+    vector<int> prefix(n + 1);
 
     partial_sum(stones.begin(), stones.end(), prefix.begin() + 1);
-    return stoneGameVII(stones, 0, n - 1);
-  }
 
- private:
-  vector<vector<int>> dp;
-  vector<int> prefix;
+    for (int d = 1; d < n; ++d)
+      for (int i = 0; i + d < n; ++i) {
+        const int j = i + d;
+        dp[i][j] = max(prefix[j + 1] - prefix[i + 1] - dp[i + 1][j],
+                       prefix[j] - prefix[i] - dp[i][j - 1]);
+      }
 
-  int stoneGameVII(const vector<int>& stones, int i, int j) {
-    if (i == j)
-      return 0;
-    if (dp[i][j] > 0)
-      return dp[i][j];
-
-    dp[i][j] =
-        max({dp[i][j],
-             // Remove stones[i], so get sum of stones[i + 1..j]
-             prefix[j + 1] - prefix[i + 1] - stoneGameVII(stones, i + 1, j),
-             // Remove stones[j], so get sum of stones[i..j - 1]
-             prefix[j] - prefix[i] - stoneGameVII(stones, i, j - 1)});
-
-    return dp[i][j];
+    return dp[0][n - 1];
   }
 };
