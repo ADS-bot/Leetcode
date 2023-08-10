@@ -5,41 +5,20 @@ class Solution:
     ans = 0
     prefix = list(itertools.accumulate(nums))
 
-    # Find the first index j s.t.
-    # Mid = prefix[j] - prefix[i] >= left = prefix[i]
-    def firstGreaterEqual(i: int) -> int:
-      l = i + 1
-      r = n - 1
-      while l < r:
-        m = (l + r) // 2
-        if prefix[m] - prefix[i] >= prefix[i]:
-          r = m
-        else:
-          l = m + 1
-      return l
-
-    # Find the first index k s.t.
-    # Mid = prefix[k] - prefix[i] > right = prefix[-1] - prefix[k]
-    def firstGreater(i: int) -> int:
-      l = i + 1
-      r = n - 1
-      while l < r:
-        m = (l + r) // 2
-        if prefix[m] - prefix[i] > prefix[-1] - prefix[m]:
-          r = m
-        else:
-          l = m + 1
-      return l
-
+    j = 0
+    k = 0
     for i in range(n - 2):
-      j = firstGreaterEqual(i)
-      if j == n - 1:
-        break
-      mid = prefix[j] - prefix[i]
-      right = prefix[-1] - prefix[j]
-      if mid > right:
-        continue
-      k = firstGreater(i)
-      ans = (ans + k - j) % kMod
+      # Find the first index j s.t.
+      # Left = prefix[i] <= mid = prefix[j] - prefix[i]
+      j = max(j, i + 1)
+      while j < n - 1 and prefix[i] > prefix[j] - prefix[i]:
+        j += 1
+      # Find the first index k s.t.
+      # Mid = prefix[k] - prefix[i] > right = prefix[-1] - prefix[k]
+      k = max(k, j)
+      while k < n - 1 and prefix[k] - prefix[i] <= prefix[-1] - prefix[k]:
+        k += 1
+      ans += k - j
+      ans %= kMod
 
     return ans
