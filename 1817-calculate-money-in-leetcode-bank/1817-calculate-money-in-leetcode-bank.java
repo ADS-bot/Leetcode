@@ -1,18 +1,6 @@
 class Solution {
     public int totalMoney(int n) {
-        int total = 0;
-        int start = 0;
-        int curr = 0;
-        for (int i = 1; i <= n; i++) {
-            if (i % 7 == 1) {
-                start++;
-                total += start;
-                curr = start;
-            } else {
-                curr++;
-                total += curr;
-            }
-        }
-        return total;
+        int a = n / 7, b = n % 7;
+        return (28 + 28 + 7 * (a - 1)) * a / 2 + (a * 2 + b + 1) * b / 2;
     }
 }
