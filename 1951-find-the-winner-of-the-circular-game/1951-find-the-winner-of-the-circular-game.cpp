@@ -1,22 +1,25 @@
 class Solution {
  public:
   int findTheWinner(int n, int k) {
-    // friends[i] := true if i-th friend is left.
-    vector<bool> friends(n);
+    // Converts back to 1-indexed
+    return f(n, k) + 1;
+  }
 
-    int friendCount = n;
-    int fp = 0;  // friends' pointer
-
-    while (friendCount > 1) {
-      for (int i = 0; i < k; ++i, ++fp)
-        while (friends[fp % n])  // The friend is not there.
-          ++fp;                  // Point to the next one.
-      friends[(fp - 1) % n] = true;
-      --friendCount;
-    }
-
-    const auto it =
-        find_if(friends.begin(), friends.end(), [](int f) { return !f; });
-    return distance(friends.begin(), it) + 1;
+  // E.g., n = 4, k = 2.
+  // By using 0-indexed notation, we have the following circle:
+  //
+  // 0 -> 1 -> 2 -> 3 -> 0
+  //      x
+  //           0 -> 1 -> 2 -> 0
+  //
+  // After the first round, 1 is removed.
+  // So, 2 becomes 0, 3 becomes 1, and 0 becomes 2.
+  // Let's denote that oldIndex = f(n, k) and newIndex = f(n - 1, k).
+  // By observation, we know f(n, k) = (f(n - 1, k) + k) % n
+ private:
+  int f(int n, int k) {
+    if (n == 1)
+      return 0;
+    return (f(n - 1, k) + k) % n;
   }
 };
