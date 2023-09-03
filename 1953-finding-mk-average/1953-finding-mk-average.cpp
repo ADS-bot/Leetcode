@@ -1,80 +1,70 @@
+struct MyMap {
+  map<int, int> map;
+  int size = 0;
+  long sum = 0;
+};
+
 class MKAverage {
  public:
-  MKAverage(int m, int k) : m(m), k(k) {}
+  MKAverage(int m, int k) : m(m), k(k), kMidSize(m - 2 * k) {}
 
   void addElement(int num) {
     q.push(num);
-    add(mid, num);
-    midSum += num;
+    add(num);
 
     if (q.size() > m) {
       const int removed = q.front();
       q.pop();
-      if (top.count(removed)) {
-        remove(top, removed);
-        --topSize;
-      } else if (mid.count(removed)) {
-        remove(mid, removed);
-        midSum -= removed;
-      } else {
-        remove(bot, removed);
-        --botSize;
-      }
-    }
-
-    // Move item(s) from mid to top to fill k slots
-    while (!mid.empty() && topSize < k) {
-      midSum -= mid.rbegin()->first;
-      add(top, remove(mid, mid.rbegin()->first));
-      ++topSize;
-    }
-
-    // Rebalance mid and top
-    while (!mid.empty() && mid.rbegin()->first > top.begin()->first) {
-      midSum -= mid.rbegin()->first;
-      midSum += top.begin()->first;
-      add(top, remove(mid, mid.rbegin()->first));
-      add(mid, remove(top, top.begin()->first));
-    }
-
-    // Move item(s) from mid to bot to fill k slots
-    while (!mid.empty() && botSize < k) {
-      midSum -= mid.begin()->first;
-      add(bot, remove(mid, mid.begin()->first));
-      ++botSize;
-    }
-
-    // Move item(s) from mid to bot to fill k slots
-    while (!mid.empty() && mid.begin()->first < bot.rbegin()->first) {
-      midSum -= mid.begin()->first;
-      midSum += bot.rbegin()->first;
-      add(bot, remove(mid, mid.begin()->first));
-      add(mid, remove(bot, bot.rbegin()->first));
+      remove(removed);
     }
   }
 
   int calculateMKAverage() {
-    return q.size() == m ? midSum / (m - 2 * k) : -1;
+    return q.size() == m ? mid.sum / kMidSize : -1;
   }
 
  private:
   const int m;
   const int k;
+  const int kMidSize;
   queue<int> q;
-  map<int, int> top;
-  map<int, int> mid;
-  map<int, int> bot;
-  int topSize = 0;
-  int botSize = 0;
-  long midSum = 0;
+  MyMap top;
+  MyMap mid;
+  MyMap bot;
 
-  void add(map<int, int>& map, int num) {
-    ++map[num];
+  void add(int num) {
+    add(bot, num);
+    if (bot.size > k)
+      add(mid, remove(bot, bot.map.rbegin()->first));
+    if (mid.size > kMidSize)
+      add(top, remove(mid, mid.map.rbegin()->first));
   }
 
-  int remove(map<int, int>& map, int num) {
-    if (--map[num] == 0)
-      map.erase(num);
+  void remove(int num) {
+    if (bot.map.count(num))
+      remove(bot, num);
+    else if (mid.map.count(num))
+      remove(mid, num);
+    else
+      remove(top, num);
+
+    if (bot.size < k)
+      add(bot, remove(mid, mid.map.begin()->first));
+    if (mid.size < kMidSize)
+      add(mid, remove(top, top.map.begin()->first));
+  }
+
+  void add(MyMap& m, int num) {
+    ++m.map[num];
+    ++m.size;
+    m.sum += num;
+  }
+
+  int remove(MyMap& m, int num) {
+    if (--m.map[num] == 0)
+      m.map.erase(num);
+    --m.size;
+    m.sum -= num;
     return num;
   }
 };
