@@ -12,9 +12,11 @@ class Solution:
     # Let's denote that oldIndex = f(n, k) and newIndex = f(n - 1, k).
     # By observation, we know f(n, k) = (f(n - 1, k) + k) % n
     def f(n: int, k: int) -> int:
-      if n == 1:
-        return 0
-      return (f(n - 1, k) + k) % n
+      ans = 0  # f(1, k)
+      # Computes f(i, k) based on f(i - 1, k)
+      for i in range(2, n + 1):
+        ans = (ans + k) % i
+      return ans
 
     # Converts back to 1-indexed
     return f(n, k) + 1
