@@ -18,8 +18,10 @@ class Solution {
   // By observation, we know f(n, k) = (f(n - 1, k) + k) % n
  private:
   int f(int n, int k) {
-    if (n == 1)
-      return 0;
-    return (f(n - 1, k) + k) % n;
+    int ans = 0;  // f(1, k)
+    // Computes f(i, k) based on f(i - 1, k)
+    for (int i = 2; i <= n; ++i)
+      ans = (ans + k) % i;
+    return ans;
   }
 };
