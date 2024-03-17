@@ -1,23 +1,22 @@
 class Solution {
   public int numberOfPaths(int[][] grid, int k) {
-    final int kMod = 1_000_000_007;
-    final int m = grid.length;
-    final int n = grid[0].length;
-    // dp[i][j][sum] : = the number of paths to(i, j), where the sum / k == sum
-    int[][][] dp = new int[m][n][k];
-    dp[0][0][grid[0][0] % k] = 1;
+    Integer[][][] mem = new Integer[grid.length][grid[0].length][k];
+    return numberOfPaths(grid, 0, 0, 0, k, mem);
+  }
 
-    for (int i = 0; i < m; ++i)
-      for (int j = 0; j < n; ++j)
-        for (int sum = 0; sum < k; ++sum) {
-          final int newSum = (sum + grid[i][j]) % k;
-          if (i > 0)
-            dp[i][j][newSum] += dp[i - 1][j][sum];
-          if (j > 0)
-            dp[i][j][newSum] += dp[i][j - 1][sum];
-          dp[i][j][newSum] %= kMod;
-        }
+  private static final int kMod = 1_000_000_007;
 
-    return dp[m - 1][n - 1][0];
+  // Returns the number of paths to (i, j), where the sum / k == `sum`.
+  private int numberOfPaths(int[][] grid, int i, int j, int sum, int k, Integer[][][] mem) {
+    if (i == grid.length || j == grid[0].length)
+      return 0;
+    if (i == grid.length - 1 && j == grid[0].length - 1)
+      return (sum + grid[i][j]) % k == 0 ? 1 : 0;
+    if (mem[i][j][sum] != null)
+      return mem[i][j][sum];
+    final int newSum = (sum + grid[i][j]) % k;
+    return mem[i][j][sum] = (numberOfPaths(grid, i + 1, j, newSum, k, mem) +
+                             numberOfPaths(grid, i, j + 1, newSum, k, mem)) %
+                            kMod;
   }
 }
