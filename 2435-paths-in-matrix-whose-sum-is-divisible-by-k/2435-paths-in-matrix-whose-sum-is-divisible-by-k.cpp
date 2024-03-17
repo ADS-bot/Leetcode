@@ -1,26 +1,24 @@
 class Solution {
  public:
   int numberOfPaths(vector<vector<int>>& grid, int k) {
-    vector<vector<vector<int>>> mem(
-        grid.size(), vector<vector<int>>(grid[0].size(), vector<int>(k, -1)));
-    return numberOfPaths(grid, 0, 0, 0, k, mem);
-  }
+    constexpr int kMod = 1'000'000'007;
+    const int m = grid.size();
+    const int n = grid[0].size();
+    // dp[i][j][sum] : = the number of paths to(i, j), where the sum / k == sum
+    vector<vector<vector<int>>> dp(m, vector<vector<int>>(n, vector<int>(k)));
+    dp[0][0][grid[0][0] % k] = 1;
 
- private:
-  static constexpr int kMod = 1'000'000'007;
+    for (int i = 0; i < m; ++i)
+      for (int j = 0; j < n; ++j)
+        for (int sum = 0; sum < k; ++sum) {
+          const int newSum = (sum + grid[i][j]) % k;
+          if (i > 0)
+            dp[i][j][newSum] += dp[i - 1][j][sum];
+          if (j > 0)
+            dp[i][j][newSum] += dp[i][j - 1][sum];
+          dp[i][j][newSum] %= kMod;
+        }
 
-  // Returns the number of paths to (i, j), where the sum / k == `sum`.
-  int numberOfPaths(const vector<vector<int>>& grid, int i, int j, int sum,
-                    int k, vector<vector<vector<int>>>& mem) {
-    if (i == grid.size() || j == grid[0].size())
-      return 0;
-    if (i == grid.size() - 1 && j == grid[0].size() - 1)
-      return (sum + grid[i][j]) % k == 0;
-    if (mem[i][j][sum] != -1)
-      return mem[i][j][sum];
-    const int newSum = (sum + grid[i][j]) % k;
-    return mem[i][j][sum] = (numberOfPaths(grid, i + 1, j, newSum, k, mem) +
-                             numberOfPaths(grid, i, j + 1, newSum, k, mem)) %
-                            kMod;
+    return dp[m - 1][n - 1][0];
   }
 };
