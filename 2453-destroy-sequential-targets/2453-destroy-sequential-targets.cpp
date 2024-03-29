@@ -1,17 +1,15 @@
 class Solution {
  public:
   int destroyTargets(vector<int>& nums, int space) {
-    int ans = INT_MAX;
-    int maxCount = 0;
     unordered_map<int, int> count;
 
     for (const int num : nums)
-      maxCount = max(maxCount, ++count[num % space]);
+      ++count[num % space];
 
-    for (const int num : nums)
-      if (count[num % space] == maxCount)
-        ans = min(ans, num);
-
-    return ans;
+    return *ranges::max_element(nums, [&count, space](int a, int b) {
+      const int countA = count[a % space];
+      const int countB = count[b % space];
+      return countA == countB ? a > b : countA < countB;
+    });
   }
 };
