@@ -1,14 +1,22 @@
 class Solution:
   def trap(self, height: List[int]) -> int:
-    n = len(height)
-    l = [0] * n  # l[i] := max(height[0..i])
-    r = [0] * n  # r[i] := max(height[i..n))
+    if not height:
+      return 0
 
-    for i, h in enumerate(height):
-      l[i] = h if i == 0 else max(h, l[i - 1])
+    ans = 0
+    l = 0
+    r = len(height) - 1
+    maxL = height[l]
+    maxR = height[r]
 
-    for i, h in reversed(list(enumerate(height))):
-      r[i] = h if i == n - 1 else max(h, r[i + 1])
+    while l < r:
+      if maxL < maxR:
+        ans += maxL - height[l]
+        l += 1
+        maxL = max(maxL, height[l])
+      else:
+        ans += maxR - height[r]
+        r -= 1
+        maxR = max(maxR, height[r])
 
-    return sum(min(l[i], r[i]) - h
-               for i, h in enumerate(height))
+    return ans
