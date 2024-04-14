@@ -5,14 +5,19 @@ class Solution {
       return 0;
 
     int ans = 0;
+    stack<TreeNode*> stack{{root}};
 
-    if (root->left) {
-      if (root->left->left == nullptr && root->left->right == nullptr)
-        ans += root->left->val;
-      else
-        ans += sumOfLeftLeaves(root->left);
+    while (!stack.empty()) {
+      root = stack.top(), stack.pop();
+      if (root->left) {
+        if (root->left->left == nullptr && root->left->right == nullptr)
+          ans += root->left->val;
+        else
+          stack.push(root->left);
+      }
+      if (root->right)
+        stack.push(root->right);
     }
-    ans += sumOfLeftLeaves(root->right);
 
     return ans;
   }
