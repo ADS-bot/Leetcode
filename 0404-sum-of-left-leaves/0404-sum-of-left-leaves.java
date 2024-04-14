@@ -4,14 +4,20 @@ class Solution {
       return 0;
 
     int ans = 0;
+    Deque<TreeNode> stack = new ArrayDeque<>();
+    stack.push(root);
 
-    if (root.left != null) {
-      if (root.left.left == null && root.left.right == null)
-        ans += root.left.val;
-      else
-        ans += sumOfLeftLeaves(root.left);
+    while (!stack.isEmpty()) {
+      root = stack.pop();
+      if (root.left != null) {
+        if (root.left.left == null && root.left.right == null)
+          ans += root.left.val;
+        else
+          stack.push(root.left);
+      }
+      if (root.right != null)
+        stack.push(root.right);
     }
-    ans += sumOfLeftLeaves(root.right);
 
     return ans;
   }
