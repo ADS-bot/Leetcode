@@ -4,16 +4,12 @@ class Solution:
       return 0
 
     ans = 0
-    stack = [root]
 
-    while stack:
-      root = stack.pop()
-      if root.left:
-        if not root.left.left and not root.left.right:
-          ans += root.left.val
-        else:
-          stack.append(root.left)
-      if root.right:
-        stack.append(root.right)
+    if root.left:
+      if not root.left.left and not root.left.right:
+        ans += root.left.val
+      else:
+        ans += self.sumOfLeftLeaves(root.left)
+    ans += self.sumOfLeftLeaves(root.right)
 
     return ans
