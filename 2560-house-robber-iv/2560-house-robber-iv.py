@@ -1,26 +1,14 @@
-class Solution {
-  public int minCapability(int[] nums, int k) {
-    int l = Arrays.stream(nums).min().getAsInt();
-    int r = Arrays.stream(nums).max().getAsInt();
+class Solution:
+  def minCapability(self, nums: List[int], k: int) -> int:
+    def numStolenHouses(capacity: int) -> int:
+      stolenHouses = 0
+      i = 0
+      while i < len(nums):
+        if nums[i] <= capacity:
+          stolenHouses += 1
+          i += 1
+        i += 1
+      return stolenHouses
 
-    while (l < r) {
-      final int m = (l + r) / 2;
-      if (numStolenHouses(nums, m) >= k)
-        r = m;
-      else
-        l = m + 1;
-    }
-
-    return l;
-  }
-
-  private int numStolenHouses(int[] nums, int capacity) {
-    int stolenHouses = 0;
-    for (int i = 0; i < nums.length; ++i)
-      if (nums[i] <= capacity) {
-        ++stolenHouses;
-        ++i;
-      }
-    return stolenHouses;
-  }
-}
+    return bisect.bisect_left(range(max(nums)), k,
+                              key=lambda m: numStolenHouses(m))
