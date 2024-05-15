@@ -1,29 +1,31 @@
 class Solution {
-  public int minMaxDifference(int num) {
-    final String s = String.valueOf(num);
-    final char to9 = s.charAt(firstNotNineIndex(s));
-    final char to0 = s.charAt(0);
-    return getMax(new StringBuilder(s), to9) - getMin(new StringBuilder(s), to0);
+ public:
+  int minMaxDifference(int num) {
+    const string s = to_string(num);
+    const char to9 = s[firstNotNineIndex(s)];
+    const char to0 = s[0];
+    return getMax(s, to9) - getMin(s, to0);
   }
 
-  private int firstNotNineIndex(final String s) {
+ private:
+  int firstNotNineIndex(const string& s) {
     for (int i = 0; i < s.length(); ++i)
-      if (s.charAt(i) != '9')
+      if (s[i] != '9')
         return i;
     return 0;
   }
 
-  private int getMax(StringBuilder sb, char to9) {
-    for (int i = 0; i < sb.length(); ++i)
-      if (sb.charAt(i) == to9)
-        sb.setCharAt(i, '9');
-    return Integer.parseInt(sb.toString());
+  int getMax(string s, char to9) {
+    for (char& c : s)
+      if (c == to9)
+        c = '9';
+    return stoi(s);
   }
 
-  private int getMin(StringBuilder sb, char to0) {
-    for (int i = 0; i < sb.length(); ++i)
-      if (sb.charAt(i) == to0)
-        sb.setCharAt(i, '0');
-    return Integer.parseInt(sb.toString());
+  int getMin(string s, char to0) {
+    for (char& c : s)
+      if (c == to0)
+        c = '0';
+    return stoi(s);
   }
-}
+};
