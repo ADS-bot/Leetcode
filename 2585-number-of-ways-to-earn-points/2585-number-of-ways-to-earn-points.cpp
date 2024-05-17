@@ -2,21 +2,21 @@ class Solution {
  public:
   int waysToReachTarget(int target, vector<vector<int>>& types) {
     constexpr int kMod = 1'000'000'007;
-    // dp[j] := the number of ways to earn j points with the types so far
-    vector<int> dp(target + 1);
-    dp[0] = 1;
+    // dp[i][j] := the number of ways to earn j points with the first i types
+    vector<vector<int>> dp(types.size() + 1, vector<int>(target + 1));
+    dp[0][0] = 1;
 
-    for (const vector<int>& type : types) {
-      const int count = type[0];
-      const int mark = type[1];
-      for (int j = target; j >= 0; --j)
-        for (int solved = 1; solved <= count; ++solved)
+    for (int i = 1; i <= types.size(); ++i) {
+      const int count = types[i - 1][0];
+      const int mark = types[i - 1][1];
+      for (int j = 0; j <= target; ++j)
+        for (int solved = 0; solved <= count; ++solved)
           if (j - solved * mark >= 0) {
-            dp[j] += dp[j - solved * mark];
-            dp[j] %= kMod;
+            dp[i][j] += dp[i - 1][j - solved * mark];
+            dp[i][j] %= kMod;
           }
     }
 
-    return dp[target];
+    return dp[types.size()][target];
   }
 };
