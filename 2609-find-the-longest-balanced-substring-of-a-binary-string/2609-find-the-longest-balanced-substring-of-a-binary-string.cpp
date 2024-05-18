@@ -2,19 +2,18 @@ class Solution {
  public:
   int findTheLongestBalancedSubstring(string s) {
     int ans = 0;
+    int count0 = 0;
+    int count1 = 0;
 
-    for (int i = 0; i < s.length();) {
-      int zeros = 0;
-      int ones = 0;
-      while (i < s.length() && s[i] == '0') {
-        ++zeros;
-        ++i;
+    for (const char c : s) {
+      if (c == '0') {
+        count0 = count1 > 0 ? 1 : count0 + 1;
+        count1 = 0;
+      } else {  // c == '1'
+        ++count1;
       }
-      while (i < s.length() && s[i] == '1') {
-        ++ones;
-        ++i;
-      }
-      ans = max(ans, min(zeros, ones));
+      if (count0 >= count1)
+        ans = max(ans, count1);
     }
 
     return ans * 2;
