@@ -1,40 +1,37 @@
-class Solution {
- public:
-  string minimumString(string a, string b, string c) {
-    const string abc = merge(a, merge(b, c));
-    const string acb = merge(a, merge(c, b));
-    const string bac = merge(b, merge(a, c));
-    const string bca = merge(b, merge(c, a));
-    const string cab = merge(c, merge(a, b));
-    const string cba = merge(c, merge(b, a));
-    return getMin({abc, acb, bac, bca, cab, cba});
+public class Solution {
+  public String minimumString(String a, String b, String c) {
+    final String abc = merge(a, merge(b, c));
+    final String acb = merge(a, merge(c, b));
+    final String bac = merge(b, merge(a, c));
+    final String bca = merge(b, merge(c, a));
+    final String cab = merge(c, merge(a, b));
+    final String cba = merge(c, merge(b, a));
+    return getMin(Arrays.asList(abc, acb, bac, bca, cab, cba));
   }
 
- private:
   // Merges a and b.
-  string merge(const string& a, const string& b) {
-    if (b.find(a) != string::npos)  // a is a substring of b.
+  private String merge(String a, String b) {
+    if (b.contains(a)) // a is a substring of b.
       return b;
     for (int i = 0; i < a.length(); ++i) {
-      const string aSuffix = a.substr(i);
-      const string bPrefix = b.substr(0, min(b.length(), aSuffix.length()));
-      if (aSuffix == bPrefix)
-        return a + b.substr(bPrefix.length());
+      final String aSuffix = a.substring(i);
+      final String bPrefix = b.substring(0, Math.min(b.length(), aSuffix.length()));
+      if (aSuffix.equals(bPrefix))
+        return a + b.substring(bPrefix.length());
     }
     return a + b;
   }
 
   // Returns the lexicographically smallest string.
-  string getMin(const vector<string>& words) {
-    string res = words[0];
+  private String getMin(List<String> words) {
+    String res = words.get(0);
     for (int i = 1; i < words.size(); ++i)
-      res = getMin(res, words[i]);
+      res = getMin(res, words.get(i));
     return res;
   }
 
   // Returns the lexicographically smaller string.
-  string getMin(const string& a, const string& b) {
-    return (a.length() < b.length() || (a.length() == b.length() && a < b)) ? a
-                                                                            : b;
+  private String getMin(String a, String b) {
+    return (a.length() < b.length() || (a.length() == b.length() && a.compareTo(b) < 0)) ? a : b;
   }
-};
+}
