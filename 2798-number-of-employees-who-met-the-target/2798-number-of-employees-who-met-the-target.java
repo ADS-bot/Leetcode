@@ -1,7 +1,5 @@
 class Solution {
- public:
-  int numberOfEmployeesWhoMetTarget(vector<int>& hours, int target) {
-    return ranges::count_if(hours,
-                            [target](int hour) { return hour >= target; });
+  public int numberOfEmployeesWhoMetTarget(int[] hours, int target) {
+    return (int) Arrays.stream(hours).filter(hour -> hour >= target).count();
   }
-};
+}
