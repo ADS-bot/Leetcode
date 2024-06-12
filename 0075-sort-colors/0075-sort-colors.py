@@ -1,22 +1,18 @@
 class Solution:
   def sortColors(self, nums: List[int]) -> None:
-    zero = -1
-    one = -1
-    two = -1
+    l = 0  # The next 0 should be placed in l.
+    r = len(nums) - 1  # THe next 2 should be placed in r.
 
-    for num in nums:
-      if num == 0:
-        two += 1
-        one += 1
-        zero += 1
-        nums[two] = 2
-        nums[one] = 1
-        nums[zero] = 0
-      elif num == 1:
-        two += 1
-        one += 1
-        nums[two] = 2
-        nums[one] = 1
+    i = 0
+    while i <= r:
+      if nums[i] == 0:
+        nums[i], nums[l] = nums[l], nums[i]
+        i += 1
+        l += 1
+      elif nums[i] == 1:
+        i += 1
       else:
-        two += 1
-        nums[two] = 2
+        # We may swap a 0 to index i, but we're still not sure whether this 0
+        # is placed in the correct index, so we can't move pointer i.
+        nums[i], nums[r] = nums[r], nums[i]
+        r -= 1
