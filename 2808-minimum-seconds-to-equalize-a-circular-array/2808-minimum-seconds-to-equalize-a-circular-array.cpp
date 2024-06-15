@@ -1,26 +1,26 @@
 class Solution {
-  public int minimumSeconds(List<Integer> nums) {
-    int n = nums.size();
+ public:
+  int minimumSeconds(vector<int>& nums) {
+    const int n = nums.size();
     int ans = n;
-    Map<Integer, List<Integer>> numToIndices = new HashMap<>();
+    unordered_map<int, vector<int>> numToIndices;
 
-    for (int i = 0; i < n; ++i) {
-      numToIndices.putIfAbsent(nums.get(i), new ArrayList<>());
-      numToIndices.get(nums.get(i)).add(i);
-    }
+    for (int i = 0; i < n; ++i)
+      numToIndices[nums[i]].push_back(i);
 
-    for (List<Integer> indices : numToIndices.values()) {
-      int seconds = getSeconds(indices.get(0) + n, indices.get(indices.size() - 1));
+    for (const auto& [_, indices] : numToIndices) {
+      int seconds = getSeconds(indices.front() + n, indices.back());
       for (int i = 1; i < indices.size(); ++i)
-        seconds = Math.max(seconds, getSeconds(indices.get(i), indices.get(i - 1)));
-      ans = Math.min(ans, seconds);
+        seconds = max(seconds, getSeconds(indices[i], indices[i - 1]));
+      ans = min(ans, seconds);
     }
 
     return ans;
   }
 
+ private:
   // Returns the number of seconds required to make nums[i..j] the same.
-  private int getSeconds(int i, int j) {
+  int getSeconds(int i, int j) {
     return (i - j) / 2;
   }
-}
+};
