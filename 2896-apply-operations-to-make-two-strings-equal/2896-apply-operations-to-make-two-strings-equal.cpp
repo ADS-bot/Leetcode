@@ -8,25 +8,19 @@ class Solution {
     // differences.
     if (diffIndices.size() % 2 == 1)
       return -1;
-    vector<double> mem(diffIndices.size(), -1.0);
-    return minOperations(diffIndices, 0, x, mem);
+
+    vector<double> dp(diffIndices.size() + 1, DBL_MAX);
+    dp.back() = 0;
+    dp[diffIndices.size() - 1] = x / 2.0;
+
+    for (int i = diffIndices.size() - 2; i >= 0; --i)
+      dp[i] = min(dp[i + 1] + x / 2.0,
+                  dp[i + 2] + diffIndices[i + 1] - diffIndices[i]);
+
+    return dp[0];
   }
 
  private:
-  // Returns the minimum cost to correct diffIndices[i..n).
-  double minOperations(const vector<int>& diffIndices, int i, double x,
-                       vector<double>& mem) {
-    if (i == diffIndices.size())
-      return 0;
-    if (i == diffIndices.size() - 1)
-      return x / 2;
-    if (mem[i] != -1.0)
-      return mem[i];
-    return mem[i] = min(minOperations(diffIndices, i + 1, x, mem) + x / 2,
-                        minOperations(diffIndices, i + 2, x, mem) +
-                            diffIndices[i + 1] - diffIndices[i]);
-  }
-
   vector<int> getDiffIndices(const string& s1, const string& s2) {
     vector<int> diffIndices;
     for (int i = 0; i < s1.length(); ++i)
