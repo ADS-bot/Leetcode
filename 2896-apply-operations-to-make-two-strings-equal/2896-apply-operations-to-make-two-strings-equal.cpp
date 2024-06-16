@@ -9,15 +9,18 @@ class Solution {
     if (diffIndices.size() % 2 == 1)
       return -1;
 
-    vector<double> dp(diffIndices.size() + 1, DBL_MAX);
-    dp.back() = 0;
-    dp[diffIndices.size() - 1] = x / 2.0;
+    double dp = 0;
+    double dpNext = x / 2.0;
+    double dpNextNext = 0;
 
-    for (int i = diffIndices.size() - 2; i >= 0; --i)
-      dp[i] = min(dp[i + 1] + x / 2.0,
-                  dp[i + 2] + diffIndices[i + 1] - diffIndices[i]);
+    for (int i = diffIndices.size() - 2; i >= 0; --i) {
+      dp = min(dpNext + x / 2.0,
+               dpNextNext + diffIndices[i + 1] - diffIndices[i]);
+      dpNextNext = dpNext;
+      dpNext = dp;
+    }
 
-    return dp[0];
+    return dp;
   }
 
  private:
