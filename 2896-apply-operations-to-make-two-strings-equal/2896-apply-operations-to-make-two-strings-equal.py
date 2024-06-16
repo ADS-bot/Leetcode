@@ -9,12 +9,16 @@ class Solution:
     if len(diffIndices) & 1:
       return -1
 
-    # dp[i] := the minimum cost to correct diffIndices[i:]
-    dp = [math.inf] * len(diffIndices) + [0]
-    dp[-2] = x / 2
+    #         dp := the minimum cost to correct diffIndices[i:]
+    #     dpNext := the minimum cost to correct diffIndices[i + 1:]
+    # dpNextNext := the minimum cost to correct diffIndices[i + 2:]
+    dpNext = x / 2
+    dpNextNext = 0
 
     for i in reversed(range(len(diffIndices) - 1)):
-      dp[i] = min(dp[i + 1] + x / 2,
-                  dp[i + 2] + diffIndices[i + 1] - diffIndices[i])
+      dp = min(dpNext + x / 2,
+               dpNextNext + diffIndices[i + 1] - diffIndices[i])
+      dpNextNext = dpNext
+      dpNext = dp
 
-    return int(dp[0])
+    return int(dp)
