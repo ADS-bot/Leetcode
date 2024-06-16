@@ -7,17 +7,20 @@ class Solution {
     // differences.
     if (diffIndices.size() % 2 == 1)
       return -1;
+    Double[] mem = new Double[diffIndices.size()];
+    return (int) minOperations(diffIndices, 0, x, mem);
+  }
 
-    double[] dp = new double[diffIndices.size() + 1];
-    Arrays.fill(dp, Double.MAX_VALUE);
-    dp[diffIndices.size()] = 0;
-    dp[diffIndices.size() - 1] = x / 2.0;
-
-    for (int i = diffIndices.size() - 2; i >= 0; --i)
-      dp[i] = Math.min(dp[i + 1] + x / 2.0, //
-                       dp[i + 2] + diffIndices.get(i + 1) - diffIndices.get(i));
-
-    return (int) dp[0];
+  private double minOperations(List<Integer> diffIndices, int i, double x, Double[] mem) {
+    if (i == diffIndices.size())
+      return 0;
+    if (i == diffIndices.size() - 1)
+      return x / 2;
+    if (mem[i] != null)
+      return mem[i];
+    return mem[i] = Math.min(minOperations(diffIndices, i + 1, x, mem) + x / 2,
+                             minOperations(diffIndices, i + 2, x, mem) + diffIndices.get(i + 1) -
+                                 diffIndices.get(i));
   }
 
   private List<Integer> getDiffIndices(final String s1, final String s2) {
