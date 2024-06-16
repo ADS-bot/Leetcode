@@ -8,18 +8,16 @@ class Solution {
     if (diffIndices.size() % 2 == 1)
       return -1;
 
-    double dp = 0;
-    double dpNext = x / 2.0;
-    double dpNextNext = 0;
+    double[] dp = new double[diffIndices.size() + 1];
+    Arrays.fill(dp, Double.MAX_VALUE);
+    dp[diffIndices.size()] = 0;
+    dp[diffIndices.size() - 1] = x / 2.0;
 
-    for (int i = diffIndices.size() - 2; i >= 0; --i) {
-      dp = Math.min(dpNext + x / 2.0, //
-                    dpNextNext + diffIndices.get(i + 1) - diffIndices.get(i));
-      dpNextNext = dpNext;
-      dpNext = dp;
-    }
+    for (int i = diffIndices.size() - 2; i >= 0; --i)
+      dp[i] = Math.min(dp[i + 1] + x / 2.0, //
+                       dp[i + 2] + diffIndices.get(i + 1) - diffIndices.get(i));
 
-    return (int) dp;
+    return (int) dp[0];
   }
 
   private List<Integer> getDiffIndices(final String s1, final String s2) {
