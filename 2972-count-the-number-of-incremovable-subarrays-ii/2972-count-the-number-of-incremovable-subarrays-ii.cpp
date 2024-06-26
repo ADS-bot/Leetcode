@@ -14,14 +14,15 @@ class Solution {
     long ans = n - startIndex + 1;
 
     // Enumerate each prefix subarray that is strictly increasing.
-    for (int i = 0; i < startIndex; ++i) {
+    for (int i = 0, j = startIndex; i < startIndex; ++i) {
       if (i > 0 && nums[i] <= nums[i - 1])
         break;
-      // Since nums[0..i] is strictly increasing, find the first index j in
-      // nums[startIndex..n) such that nums[j] > nums[i]. The valid removals
-      // will then be nums[i + 1..j - 1], nums[i + 1..j], ..., nums[i + 1..n).
-      ans += nums.end() -
-             upper_bound(nums.begin() + startIndex, nums.end(), nums[i]) + 1;
+      // Since nums[0..i] is strictly increasing, move j to the place such that
+      // nums[j] > nums[i]. The valid removals will then be nums[i + 1..j - 1],
+      // nums[i + 1..j], ..., nums[i + 1..n).
+      while (j < n && nums[i] >= nums[j])
+        ++j;
+      ans += n - j + 1;
     }
 
     return ans;
