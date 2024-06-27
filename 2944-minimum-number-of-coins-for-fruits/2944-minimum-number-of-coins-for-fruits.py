@@ -1,15 +1,13 @@
 class Solution:
   def minimumCoins(self, prices: List[int]) -> int:
     n = len(prices)
-    # Stores (dp[i], i), where dp[i] is the minimum number of coins to acquire
-    # fruits[i:] (0-indexed).
-    minHeap = [(0, n)]
-    ans = 0
+    # Convert to 0-indexed for easy computation.
+    # dp[i] := the minimum number of coins to acquire fruits[i:]
+    dp = [math.inf] * n + [0]
 
     for i in range(n - 1, -1, -1):
-      while minHeap and minHeap[0][1] > (i + 1) * 2:
-        heapq.heappop(minHeap)
-      ans = prices[i] + minHeap[0][0]
-      heapq.heappush(minHeap, (ans, i))
+      # Convert back to 1-indexed.
+      for j in range(i + 1, min((i + 1) * 2 + 1, n + 1)):
+        dp[i] = min(dp[i], prices[i] + dp[j])
 
-    return ans
+    return dp[0]
