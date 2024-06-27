@@ -1,17 +1,15 @@
 class Solution:
   def minimumCoins(self, prices: List[int]) -> int:
     n = len(prices)
-    ans = math.inf
-    # Stores (dp[i], i), where dp[i] := the minimum number of coins to acquire
-    # fruits[i:] (0-indexed) in ascending order.
-    minQ = collections.deque([(0, n)])
+    # Stores (dp[i], i), where dp[i] is the minimum number of coins to acquire
+    # fruits[i:] (0-indexed).
+    minHeap = [(0, n)]
+    ans = 0
 
     for i in range(n - 1, -1, -1):
-      while minQ and minQ[0][1] > (i + 1) * 2:
-        minQ.popleft()
-      ans = prices[i] + minQ[0][0]
-      while minQ and minQ[-1][0] >= ans:
-        minQ.pop()
-      minQ.append((ans, i))
+      while minHeap and minHeap[0][1] > (i + 1) * 2:
+        heapq.heappop(minHeap)
+      ans = prices[i] + minHeap[0][0]
+      heapq.heappush(minHeap, (ans, i))
 
     return ans
