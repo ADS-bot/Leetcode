@@ -1,14 +1,17 @@
-class Solution:
-  def numberOfSubarrays(self, nums: List[int]) -> int:
-    ans = 0
-    stack = []
+class Solution {
+  public long numberOfSubarrays(int[] nums) {
+    Deque<int[]> stack = new ArrayDeque<>();
+    long ans = 0;
+    int top = -1;
 
-    for num in nums:
-      while stack and stack[-1][0] < num:
-        stack.pop()
-      if not stack or stack[-1][0] != num:
-        stack.append([num, 0])
-      stack[-1][1] += 1
-      ans += stack[-1][1]
+    for (final int num : nums) {
+      while (!stack.isEmpty() && stack.peek()[0] < num)
+        stack.pop();
+      if (stack.isEmpty() || stack.peek()[0] != num)
+        stack.push(new int[] {num, 0});
+      ans += ++stack.peek()[1];
+    }
 
-    return ans
+    return ans;
+  }
+}
