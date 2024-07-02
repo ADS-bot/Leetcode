@@ -1,19 +1,23 @@
 class Solution {
  public:
   vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
-    if (nums1.size() > nums2.size())
-      return intersect(nums2, nums1);
+    ranges::sort(nums1);
+    ranges::sort(nums2);
 
     vector<int> ans;
-    unordered_map<int, int> count;
+    int i = 0;  // nums1's index
+    int j = 0;  // nums2's index
 
-    for (const int num : nums1)
-      ++count[num];
-
-    for (const int num : nums2)
-      if (const auto it = count.find(num);
-          it != count.cend() && it->second-- > 0)
-        ans.push_back(num);
+    while (i < nums1.size() && j < nums2.size())
+      if (nums1[i] < nums2[j]) {
+        ++i;
+      } else if (nums1[i] > nums2[j]) {
+        ++j;
+      } else {
+        ans.push_back(nums1[i]);
+        ++i;
+        ++j;
+      }
 
     return ans;
   }
