@@ -1,19 +1,20 @@
 class Solution {
-  public int maximumSetSize(int[] nums1, int[] nums2) {
-    Set<Integer> set1 = Arrays.stream(nums1).boxed().collect(Collectors.toSet());
-    Set<Integer> set2 = Arrays.stream(nums2).boxed().collect(Collectors.toSet());
-    Set<Integer> common = new HashSet<>();
+ public:
+  int maximumSetSize(vector<int>& nums1, vector<int>& nums2) {
+    const unordered_set<int> set1{nums1.begin(), nums1.end()};
+    const unordered_set<int> set2{nums2.begin(), nums2.end()};
+    unordered_set<int> common;
 
-    for (final int num1 : set1)
-      if (set2.contains(num1))
-        common.add(num1);
+    for (const int num1 : set1)
+      if (set2.count(num1))
+        common.insert(num1);
 
-    final int n = nums1.length;
-    final int n1 = set1.size();
-    final int n2 = set2.size();
-    final int nc = common.size();
-    final int maxUniqueNums1 = Math.min(n1 - nc, n / 2);
-    final int maxUniqueNums2 = Math.min(n2 - nc, n / 2);
-    return Math.min(n, maxUniqueNums1 + maxUniqueNums2 + nc);
+    const int n = nums1.size();
+    const int n1 = set1.size();
+    const int n2 = set2.size();
+    const int nc = common.size();
+    const int maxUniqueNums1 = min(n1 - nc, n / 2);
+    const int maxUniqueNums2 = min(n2 - nc, n / 2);
+    return min(n, maxUniqueNums1 + maxUniqueNums2 + nc);
   }
-}
+};
