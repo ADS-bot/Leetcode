@@ -7,7 +7,7 @@ class Solution {
     // problem can be rephrased as finding min(x - 1 + y) s.t. x * (1 + y) >= k.
     // Optimally, `x` should equal to `1 + y`, implying that x^2 >= k, and
     // hence, x >= sqrt(k) and y = ceil(k / x) - 1.
-    final int x = (int) Math.sqrt(k);
+    final int x = (int) Math.ceil(Math.sqrt(k));
     final int y = (k - 1) / x + 1 - 1; // ceil(k / x) - 1
     return x - 1 + y;
   }
