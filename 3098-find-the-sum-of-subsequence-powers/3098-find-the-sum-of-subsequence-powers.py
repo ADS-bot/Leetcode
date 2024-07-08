@@ -1,25 +1,20 @@
 class Solution:
   def sumOfPowers(self, nums: List[int], k: int) -> int:
     kMod = 1_000_000_007
+    n = len(nums)
+
     nums.sort()
 
     @functools.lru_cache(None)
-    def dp(i: int, k: int, lastPickedIndex: int, firstIndex: int, secondIndex: int) -> int:
+    def dp(i: int, k: int, lastPickIndex: int, minDiff: int) -> int:
       if k == 0:
-        return nums[secondIndex] - nums[firstIndex]
-      if i == len(nums):
+        return minDiff
+      if i == n:
         return 0
-      newFirstIndex = firstIndex
-      newSecondIndex = secondIndex
-      if firstIndex == -1:
-        newFirstIndex = i
-      elif secondIndex == -1:
-        newSecondIndex = i
-      elif nums[i] - nums[lastPickedIndex] < nums[secondIndex] - nums[firstIndex]:
-        newFirstIndex = lastPickedIndex
-        newSecondIndex = i
-      pick = dp(i + 1, k - 1, i, newFirstIndex, newSecondIndex)
-      skip = dp(i + 1, k, lastPickedIndex, firstIndex, secondIndex)
+      newMinDiff = minDiff if lastPickIndex == - 1 \
+          else min(minDiff, nums[i] - nums[lastPickIndex])
+      pick = dp(i + 1, k - 1, i, newMinDiff)
+      skip = dp(i + 1, k, lastPickIndex, minDiff)
       return (pick + skip) % kMod
 
-    return dp(0, k, -1, -1, -1)
+    return dp(0, k, -1, math.inf)
