@@ -1,28 +1,6 @@
 class Solution {
  public:
   long long minimumMoves(vector<int>& nums, int k, int maxChanges) {
-    // Dylan has two actions for collecting '1's in a sequence:
-    // Action 1: Put a '1' next to him and pick it up.
-    //           The cost is 2.
-    // Action 2: Swap a '1' towards him and collect it.
-    //           The cost equals the distance to the '1'.
-    //
-    // To minimize the swapping cost, Dylan can use a sliding window strategy,
-    // selecting the optimal position (middle '1' in the window) for efficient
-    // collection. The window's size is crucial:
-
-    // The minimum window size: min(0, k - maxChanges), ensuring the window
-    // isn't too small.
-    // The maximum window size: min(k, minOnesByTwo + 3, the number of ones),
-    // preventing overly ambitious swaps.
-    //
-    // Note that if needing to move a '1' beyond `minOnesByTwo + 3`, it's
-    // cheaper to use Action 1.
-
-    // At most three indices, (dylanIndex - 1, dylanIndex, dylanIndex + 1), have
-    // a distance <= 1 from dylanIndex, implying that we'll be taking at most
-    // `maxOnesByTwo + 3` using Action 2. Any more Action 2 is not optimal and
-    // should be replaced with Action 1.
     constexpr int kNumOfIndicesWithinOneDistance = 3;
     long ans = LONG_MAX;
     vector<int> oneIndices;  // the indices of 1s
