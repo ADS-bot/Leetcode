@@ -1,15 +1,11 @@
 class Solution {
- public:
-  int minimumOperationsToMakeKPeriodic(string word, int k) {
-    unordered_map<string, int> count;
-    int maxFreq = 0;
+  public int minimumOperationsToMakeKPeriodic(String word, int k) {
+    Map<String, Integer> count = new HashMap<>();
 
     for (int i = 0; i < word.length(); i += k)
-      ++count[word.substr(i, k)];
+      count.merge(word.substring(i, i + k), 1, Integer::sum);
 
-    for (const auto& [_, freq] : count)
-      maxFreq = max(maxFreq, freq);
-
+    final int maxFreq = count.values().stream().max(Integer::compare).orElse(0);
     return word.length() / k - maxFreq;
   }
-};
+}
