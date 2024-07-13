@@ -1,22 +1,16 @@
-class Solution {
-  public String clearStars(String s) {
-    StringBuilder sb = new StringBuilder(s);
-    List<Integer>[] buckets = new List[26];
+class Solution:
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        poss = set()
+        ans = abs(nums[0]-k)
+        for i in range(len(nums)):
+            next_pos = set()
+            for p in poss:
+                next_pos.add(p&nums[i])
+            next_pos.add(nums[i])
 
-    for (int i = 0; i < 26; ++i)
-      buckets[i] = new ArrayList<>();
-
-    for (int i = 0; i < s.length(); ++i)
-      if (s.charAt(i) == '*') {
-        sb.setCharAt(i, ' ');
-        int j = 0;
-        while (buckets[j].isEmpty())
-          ++j;
-        sb.setCharAt(buckets[j].remove(buckets[j].size() - 1), ' ');
-      } else {
-        buckets[s.charAt(i) - 'a'].add(i);
-      }
-
-    return sb.toString().replaceAll(" ", "");
-  }
-}
+            for i in next_pos:
+                ans = min(ans, abs(i-k))
+            
+            poss = next_pos
+        
+        return ans
