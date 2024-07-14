@@ -1,65 +1,84 @@
-class FenwickTree {
+class SegmentTree {
  public:
-  FenwickTree(int n) : sums(n + 1) {}
-
-  void add(int i, int delta) {
-    while (i < sums.size()) {
-      sums[i] += delta;
-      i += lowbit(i);
-    }
+  explicit SegmentTree(const vector<int>& peak) : n(peak.size()), tree(n * 4) {
+    build(peak, 0, 0, n - 1);
   }
 
-  int get(int i) const {
-    int sum = 0;
-    while (i > 0) {
-      sum += sums[i];
-      i -= lowbit(i);
-    }
-    return sum;
+  // Updates peak[i] to val.
+  void update(int i, int val) {
+    update(0, 0, n - 1, i, val);
+  }
+
+  // Returns sum(peak[i..j]).
+  int query(int i, int j) {
+    return query(0, 0, n - 1, i, j);
   }
 
  private:
-  vector<int> sums;
+  const int n;       // the size of the input array
+  vector<int> tree;  // the segment tree
 
-  static inline int lowbit(int i) {
-    return i & -i;
+  void build(const vector<int>& peak, int treeIndex, int lo, int hi) {
+    if (lo == hi) {
+      tree[treeIndex] = peak[lo];
+      return;
+    }
+    const int mid = (lo + hi) / 2;
+    build(peak, 2 * treeIndex + 1, lo, mid);
+    build(peak, 2 * treeIndex + 2, mid + 1, hi);
+    tree[treeIndex] = merge(tree[2 * treeIndex + 1], tree[2 * treeIndex + 2]);
+  }
+
+  void update(int treeIndex, int lo, int hi, int i, int val) {
+    if (lo == hi) {
+      tree[treeIndex] = val;
+      return;
+    }
+    const int mid = (lo + hi) / 2;
+    if (i <= mid)
+      update(2 * treeIndex + 1, lo, mid, i, val);
+    else
+      update(2 * treeIndex + 2, mid + 1, hi, i, val);
+    tree[treeIndex] = merge(tree[2 * treeIndex + 1], tree[2 * treeIndex + 2]);
+  }
+
+  int query(int treeIndex, int lo, int hi, int i, int j) {
+    if (i <= lo && hi <= j)  // [lo, hi] lies completely inside [i, j].
+      return tree[treeIndex];
+    if (j < lo || hi < i)  // [lo, hi] lies completely outside [i, j].
+      return 0;
+    const int mid = (lo + hi) / 2;
+    return merge(query(treeIndex * 2 + 1, lo, mid, i, j),
+                 query(treeIndex * 2 + 2, mid + 1, hi, i, j));
+  }
+
+  // Merges the result of the left node and the right node.
+  int merge(int a, int b) const {
+    return a + b;
   }
 };
 
 class Solution {
  public:
   vector<int> countOfPeaks(vector<int>& nums, vector<vector<int>>& queries) {
+    const vector<int> peak = getPeak(nums);
     vector<int> ans;
-    vector<int> peak = getPeak(nums);
-    FenwickTree tree(peak.size());
-
-    for (int i = 0; i < peak.size(); ++i)
-      tree.add(i + 1, peak[i]);
-
-    // Update the peak array and Fenwick tree if the peak status of nums[i]
-    // changes.
-    auto update = [&](int i) {
-      const int newPeak = isPeak(nums, i);
-      if (newPeak != peak[i]) {
-        tree.add(i + 1, newPeak - peak[i]);
-        peak[i] = newPeak;
-      }
-    };
+    SegmentTree tree(peak);
 
     for (const vector<int>& query : queries)
       if (query[0] == 1) {
         const int l = query[1];
         const int r = query[2];
-        ans.push_back(r - l < 2 ? 0 : tree.get(r) - tree.get(l + 1));
+        ans.push_back(tree.query(l + 1, r - 1));
       } else if (query[0] == 2) {
         const int index = query[1];
         const int val = query[2];
         nums[index] = val;
-        update(index);
+        tree.update(index, isPeak(nums, index));
         if (index > 0)
-          update(index - 1);
+          tree.update(index - 1, isPeak(nums, index - 1));
         if (index + 1 < nums.size())
-          update(index + 1);
+          tree.update(index + 1, isPeak(nums, index + 1));
       }
 
     return ans;
