@@ -1,12 +1,14 @@
 class Solution {
  public:
   long long maximumTotalCost(vector<int>& nums) {
-    long keep = nums[0];  // the maximum cost if the last number is kept
-    long flip = nums[0];  // the maximum cost if the last number is flipped
+    // A small trick so that we don't need to handle the edge case and can use
+    // ranged-based for loop.
+    long keep = LONG_MIN / 2;  // the maximum cost if the last number is kept
+    long flip = 0;             // the maximum cost if the last number is flipped
 
-    for (int i = 1; i < nums.size(); ++i) {
-      const long keepCurr = max(keep, flip) + nums[i];
-      const long flipCurr = keep - nums[i];
+    for (const int num : nums) {
+      const long keepCurr = max(keep, flip) + num;
+      const long flipCurr = keep - num;
       keep = keepCurr;
       flip = flipCurr;
     }
