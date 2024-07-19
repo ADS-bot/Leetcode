@@ -1,10 +1,7 @@
 class Solution:
   def maximumTotalCost(self, nums: List[int]) -> int:
-    keep = nums[0]
-    flip = nums[0]
-    for i in range(1, len(nums)):
-      keepCurr = max(keep, flip) + nums[i]
-      flipCurr = keep - nums[i]
-      keep = keepCurr
-      flip = flipCurr
+    keep = -math.inf
+    flip = 0
+    for num in nums:
+      keep, flip = max(keep, flip) + num, keep - num
     return max(keep, flip)
