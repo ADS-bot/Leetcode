@@ -2,7 +2,6 @@ class TrieNode:
   def __init__(self):
     self.children: Dict[str, TrieNode] = {}
 
-
 class Trie:
   def __init__(self):
     self.root = TrieNode()
@@ -23,12 +22,9 @@ class Trie:
       prefixLength += 1
     return prefixLength
 
-
 class Solution:
   def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
     trie = Trie()
-
     for num in arr1:
       trie.insert(str(num))
-
     return max(trie.search(str(num)) for num in arr2)
