@@ -1,24 +1,26 @@
 class Solution {
   public int maxRemovals(String source, String pattern, int[] targetIndices) {
-    final int m = source.length();
-    final int n = pattern.length();
     Set<Integer> target = Arrays.stream(targetIndices).boxed().collect(Collectors.toSet());
-    // dp[i][j] := the maximum number of operations that can be performed for
-    // source[i..m) and pattern[j..n)
-    int[][] dp = new int[m + 1][n + 1];
-    Arrays.stream(dp).forEach(A -> Arrays.fill(A, Integer.MIN_VALUE));
-    dp[m][n] = 0;
+    Integer[][] mem = new Integer[source.length()][pattern.length()];
+    final int ans = maxRemovals(source, pattern, 0, 0, target, mem);
+    return ans == Integer.MIN_VALUE ? 0 : ans;
+  }
 
-    for (int i = m - 1; i >= 0; --i) {
-      dp[i][n] = (target.contains(i) ? 1 : 0) + dp[i + 1][n];
-      for (int j = n - 1; j >= 0; --j) {
-        final int pick =
-            source.charAt(i) == pattern.charAt(j) ? dp[i + 1][j + 1] : Integer.MIN_VALUE;
-        final int skip = (target.contains(i) ? 1 : 0) + dp[i + 1][j];
-        dp[i][j] = Math.max(pick, skip);
-      }
-    }
-
-    return dp[0][0] == Integer.MIN_VALUE ? 0 : dp[0][0];
+  // Returns the maximum number of operations that can be performed for
+  // source[i..m) and pattern[j..n).
+  private int maxRemovals(String source, String pattern, int i, int j, Set<Integer> target,
+                          Integer[][] mem) {
+    if (i == source.length())
+      return j == pattern.length() ? 0 : Integer.MIN_VALUE;
+    if (j == pattern.length())
+      return (target.contains(i) ? 1 : 0) + maxRemovals(source, pattern, i + 1, j, target, mem);
+    if (mem[i][j] != null)
+      return mem[i][j];
+    final int pick = source.charAt(i) == pattern.charAt(j)
+                         ? maxRemovals(source, pattern, i + 1, j + 1, target, mem)
+                         : Integer.MIN_VALUE;
+    final int skip =
+        (target.contains(i) ? 1 : 0) + maxRemovals(source, pattern, i + 1, j, target, mem);
+    return mem[i][j] = Math.max(pick, skip);
   }
 }
