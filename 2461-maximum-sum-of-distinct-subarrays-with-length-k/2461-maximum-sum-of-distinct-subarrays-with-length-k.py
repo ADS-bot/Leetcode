@@ -4,7 +4,6 @@ class Solution:
     summ = 0
     distinct = 0
     count = collections.Counter()
-
     for i, num in enumerate(nums):
       summ += num
       count[num] += 1
@@ -17,5 +16,4 @@ class Solution:
         summ -= nums[i - k]
       if i >= k - 1 and distinct == k:
         ans = max(ans, summ)
-
     return ans
