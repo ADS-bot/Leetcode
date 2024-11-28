@@ -6,7 +6,6 @@ class Solution:
     minHeap = [(grid[0][0], 0, 0)]  # (d, i, j)
     dist = [[math.inf] * n for _ in range(m)]
     dist[0][0] = grid[0][0]
-
     while minHeap:
       d, i, j = heapq.heappop(minHeap)
       if i == m - 1 and j == n - 1:
@@ -20,5 +19,4 @@ class Solution:
         if newDist < dist[x][y]:
           dist[x][y] = newDist
           heapq.heappush(minHeap, (newDist, x, y))
-
     return dist[m - 1][n - 1]
