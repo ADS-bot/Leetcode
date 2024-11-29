@@ -2,13 +2,11 @@ class Solution:
   def minimumTime(self, grid: List[List[int]]) -> int:
     if grid[0][1] > 1 and grid[1][0] > 1:
       return -1
-
     dirs = ((0, 1), (1, 0), (0, -1), (-1, 0))
     m = len(grid)
     n = len(grid[0])
-    minHeap = [(0, 0, 0)]  # (time, i, j)
+    minHeap = [(0, 0, 0)]
     seen = {(0, 0)}
-
     while minHeap:
       time, i, j = heapq.heappop(minHeap)
       if i == m - 1 and j == n - 1:
