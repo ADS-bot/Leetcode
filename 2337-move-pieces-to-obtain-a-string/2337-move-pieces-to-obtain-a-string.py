@@ -1,8 +1,8 @@
 class Solution:
   def canChange(self, start: str, target: str) -> bool:
     n = len(start)
-    i = 0  # start's index
-    j = 0  # target's index
+    i = 0
+    j = 0 
 
     while i <= n and j <= n:
       while i < n and start[i] == '_':
