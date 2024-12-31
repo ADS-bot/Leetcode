@@ -1,5 +1,5 @@
 class Solution:
-  def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+  def mincostTickets(self, days: list[int], costs: list[int]) -> int:
     ans = 0
     last7 = collections.deque()
     last30 = collections.deque()
