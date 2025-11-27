@@ -1,8 +1,6 @@
-<h2><a href="https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k/">3381. Maximum Subarray Sum With Length Divisible by K</a></h2><h3>Medium</h3><hr><div><p>You are given an array of integers <code>nums</code> and an integer <code>k</code>.</p>
+<h2><a href="https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k">3653. Maximum Subarray Sum With Length Divisible by K</a></h2><h3>Medium</h3><hr><p>You are given an array of integers <code>nums</code> and an integer <code>k</code>.</p>
 
-<p>Return the <strong>maximum</strong> sum of a <strong>non-empty subarray</strong> of <code>nums</code>, such that the size of the subarray is <strong>divisible</strong> by <code>k</code>.</p>
-
-<p>A <strong>subarray</strong> is a contiguous <b>non-empty</b> sequence of elements within an array.</p>
+<p>Return the <strong>maximum</strong> sum of a <span data-keyword="subarray-nonempty">subarray</span> of <code>nums</code>, such that the size of the subarray is <strong>divisible</strong> by <code>k</code>.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
@@ -48,4 +46,3 @@
 	<li><code>1 &lt;= k &lt;= nums.length &lt;= 2 * 10<sup>5</sup></code></li>
 	<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
 </ul>
-</div>
