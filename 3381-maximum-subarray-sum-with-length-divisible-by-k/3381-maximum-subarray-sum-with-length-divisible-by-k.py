@@ -1,21 +1,13 @@
 class Solution:
-    def maxSubarraySum(self, nums, k):
-        n = len(nums)
-        prefix = [0]*(n+1)
-        for i in range(n):
-            prefix[i+1] = prefix[i] + nums[i]
-        
-        minPrefix = [float('inf')]*k
-        minPrefix[0] = 0
-        ans = float('-inf')
-        
-        for i in range(1, n+1):
-            r = i % k
-            if minPrefix[r] != float('inf'):
-                cur = prefix[i] - minPrefix[r]
-                if cur > ans:
-                    ans = cur
-            if prefix[i] < minPrefix[r]:
-                minPrefix[r] = prefix[i]
-        
-        return ans
+  def maxSubarraySum(self, nums: list[int], k: int) -> int:
+    ans = -math.inf
+    prefix = 0
+    minPrefix = [math.inf] * k
+    minPrefix[k - 1] = 0
+
+    for i, num in enumerate(nums):
+      prefix += num
+      ans = max(ans, prefix - minPrefix[i % k])
+      minPrefix[i % k] = min(minPrefix[i % k], prefix)
+
+    return ans
