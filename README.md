@@ -26,4 +26,12 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
+## Tree
+|  |
+| ------- |
+| [2872-maximum-number-of-k-divisible-components](https://github.com/ADS-bot/Leetcode/tree/master/2872-maximum-number-of-k-divisible-components) |
+## Depth-First Search
+|  |
+| ------- |
+| [2872-maximum-number-of-k-divisible-components](https://github.com/ADS-bot/Leetcode/tree/master/2872-maximum-number-of-k-divisible-components) |
 <!---LeetCode Topics End-->
