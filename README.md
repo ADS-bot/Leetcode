@@ -8,6 +8,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [0689-maximum-sum-of-3-non-overlapping-subarrays](https://github.com/ADS-bot/Leetcode/tree/master/0689-maximum-sum-of-3-non-overlapping-subarrays) |
 | [1025-minimum-cost-for-tickets](https://github.com/ADS-bot/Leetcode/tree/master/1025-minimum-cost-for-tickets) |
+| [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
 ## Dynamic Programming
 |  |
@@ -21,10 +22,12 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 ## Hash Table
 |  |
 | ------- |
+| [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
 ## Prefix Sum
 |  |
 | ------- |
+| [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
 ## Tree
 |  |
