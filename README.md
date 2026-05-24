@@ -11,6 +11,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
+| [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
 ## Dynamic Programming
 |  |
 | ------- |
@@ -27,6 +28,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
+| [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
 ## Prefix Sum
 |  |
 | ------- |
@@ -52,4 +54,20 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
+## Binary Search
+|  |
+| ------- |
+| [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
+## Rolling Hash
+|  |
+| ------- |
+| [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
+## Suffix Array
+|  |
+| ------- |
+| [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
+## Hash Function
+|  |
+| ------- |
+| [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
 <!---LeetCode Topics End-->
