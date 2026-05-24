@@ -8,6 +8,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [0689-maximum-sum-of-3-non-overlapping-subarrays](https://github.com/ADS-bot/Leetcode/tree/master/0689-maximum-sum-of-3-non-overlapping-subarrays) |
 | [1025-minimum-cost-for-tickets](https://github.com/ADS-bot/Leetcode/tree/master/1025-minimum-cost-for-tickets) |
+| [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
 ## Dynamic Programming
@@ -15,6 +16,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [0689-maximum-sum-of-3-non-overlapping-subarrays](https://github.com/ADS-bot/Leetcode/tree/master/0689-maximum-sum-of-3-non-overlapping-subarrays) |
 | [1025-minimum-cost-for-tickets](https://github.com/ADS-bot/Leetcode/tree/master/1025-minimum-cost-for-tickets) |
+| [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
 | [1653-minimum-deletions-to-make-string-balanced](https://github.com/ADS-bot/Leetcode/tree/master/1653-minimum-deletions-to-make-string-balanced) |
 ## Database
 |  |
@@ -46,4 +48,8 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [1653-minimum-deletions-to-make-string-balanced](https://github.com/ADS-bot/Leetcode/tree/master/1653-minimum-deletions-to-make-string-balanced) |
+## Sorting
+|  |
+| ------- |
+| [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
 <!---LeetCode Topics End-->
