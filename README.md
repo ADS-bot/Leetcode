@@ -38,10 +38,12 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [2872-maximum-number-of-k-divisible-components](https://github.com/ADS-bot/Leetcode/tree/master/2872-maximum-number-of-k-divisible-components) |
+| [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/ADS-bot/Leetcode/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
 ## Depth-First Search
 |  |
 | ------- |
 | [2872-maximum-number-of-k-divisible-components](https://github.com/ADS-bot/Leetcode/tree/master/2872-maximum-number-of-k-divisible-components) |
+| [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/ADS-bot/Leetcode/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
 ## String
 |  |
 | ------- |
@@ -70,4 +72,8 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
+## Math
+|  |
+| ------- |
+| [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/ADS-bot/Leetcode/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
 <!---LeetCode Topics End-->
