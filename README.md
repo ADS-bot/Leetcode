@@ -100,4 +100,8 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [3953-maximum-score-with-co-prime-element](https://github.com/ADS-bot/Leetcode/tree/master/3953-maximum-score-with-co-prime-element) |
+## Bit Manipulation
+|  |
+| ------- |
+| [3950-exactly-one-consecutive-set-bits-pair](https://github.com/ADS-bot/Leetcode/tree/master/3950-exactly-one-consecutive-set-bits-pair) |
 <!---LeetCode Topics End-->
