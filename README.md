@@ -24,6 +24,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
 | [1653-minimum-deletions-to-make-string-balanced](https://github.com/ADS-bot/Leetcode/tree/master/1653-minimum-deletions-to-make-string-balanced) |
 | [3952-maximum-total-value-of-covered-indices](https://github.com/ADS-bot/Leetcode/tree/master/3952-maximum-total-value-of-covered-indices) |
+| [3954-sum-of-compatible-numbers-in-range-i](https://github.com/ADS-bot/Leetcode/tree/master/3954-sum-of-compatible-numbers-in-range-i) |
 | [3956-maximum-sum-of-m-non-overlapping-subarrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3956-maximum-sum-of-m-non-overlapping-subarrays-i) |
 ## Database
 |  |
@@ -101,6 +102,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [3953-maximum-score-with-co-prime-element](https://github.com/ADS-bot/Leetcode/tree/master/3953-maximum-score-with-co-prime-element) |
+| [3954-sum-of-compatible-numbers-in-range-i](https://github.com/ADS-bot/Leetcode/tree/master/3954-sum-of-compatible-numbers-in-range-i) |
 | [3955-valid-binary-strings-with-cost-limit](https://github.com/ADS-bot/Leetcode/tree/master/3955-valid-binary-strings-with-cost-limit) |
 ## Number Theory
 |  |
@@ -110,6 +112,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [3950-exactly-one-consecutive-set-bits-pair](https://github.com/ADS-bot/Leetcode/tree/master/3950-exactly-one-consecutive-set-bits-pair) |
+| [3954-sum-of-compatible-numbers-in-range-i](https://github.com/ADS-bot/Leetcode/tree/master/3954-sum-of-compatible-numbers-in-range-i) |
 | [3955-valid-binary-strings-with-cost-limit](https://github.com/ADS-bot/Leetcode/tree/master/3955-valid-binary-strings-with-cost-limit) |
 ## Backtracking
 |  |
