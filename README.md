@@ -54,6 +54,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [1653-minimum-deletions-to-make-string-balanced](https://github.com/ADS-bot/Leetcode/tree/master/1653-minimum-deletions-to-make-string-balanced) |
 | [3952-maximum-total-value-of-covered-indices](https://github.com/ADS-bot/Leetcode/tree/master/3952-maximum-total-value-of-covered-indices) |
+| [3955-valid-binary-strings-with-cost-limit](https://github.com/ADS-bot/Leetcode/tree/master/3955-valid-binary-strings-with-cost-limit) |
 ## Stack
 |  |
 | ------- |
@@ -96,6 +97,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [3953-maximum-score-with-co-prime-element](https://github.com/ADS-bot/Leetcode/tree/master/3953-maximum-score-with-co-prime-element) |
+| [3955-valid-binary-strings-with-cost-limit](https://github.com/ADS-bot/Leetcode/tree/master/3955-valid-binary-strings-with-cost-limit) |
 ## Number Theory
 |  |
 | ------- |
@@ -104,4 +106,9 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [3950-exactly-one-consecutive-set-bits-pair](https://github.com/ADS-bot/Leetcode/tree/master/3950-exactly-one-consecutive-set-bits-pair) |
+| [3955-valid-binary-strings-with-cost-limit](https://github.com/ADS-bot/Leetcode/tree/master/3955-valid-binary-strings-with-cost-limit) |
+## Backtracking
+|  |
+| ------- |
+| [3955-valid-binary-strings-with-cost-limit](https://github.com/ADS-bot/Leetcode/tree/master/3955-valid-binary-strings-with-cost-limit) |
 <!---LeetCode Topics End-->
