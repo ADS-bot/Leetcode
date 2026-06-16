@@ -60,6 +60,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [1653-minimum-deletions-to-make-string-balanced](https://github.com/ADS-bot/Leetcode/tree/master/1653-minimum-deletions-to-make-string-balanced) |
+| [3612-process-string-with-special-operations-i](https://github.com/ADS-bot/Leetcode/tree/master/3612-process-string-with-special-operations-i) |
 | [3952-maximum-total-value-of-covered-indices](https://github.com/ADS-bot/Leetcode/tree/master/3952-maximum-total-value-of-covered-indices) |
 | [3955-valid-binary-strings-with-cost-limit](https://github.com/ADS-bot/Leetcode/tree/master/3955-valid-binary-strings-with-cost-limit) |
 ## Stack
@@ -137,4 +138,8 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [3956-maximum-sum-of-m-non-overlapping-subarrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3956-maximum-sum-of-m-non-overlapping-subarrays-i) |
 | [3957-maximum-sum-of-m-non-overlapping-subarrays-ii](https://github.com/ADS-bot/Leetcode/tree/master/3957-maximum-sum-of-m-non-overlapping-subarrays-ii) |
+## Simulation
+|  |
+| ------- |
+| [3612-process-string-with-special-operations-i](https://github.com/ADS-bot/Leetcode/tree/master/3612-process-string-with-special-operations-i) |
 <!---LeetCode Topics End-->
