@@ -10,6 +10,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | [1025-minimum-cost-for-tickets](https://github.com/ADS-bot/Leetcode/tree/master/1025-minimum-cost-for-tickets) |
 | [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
+| [1840-maximum-building-height](https://github.com/ADS-bot/Leetcode/tree/master/1840-maximum-building-height) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
 | [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
 | [3951-minimum-energy-to-maintain-brightness](https://github.com/ADS-bot/Leetcode/tree/master/3951-minimum-energy-to-maintain-brightness) |
@@ -72,6 +73,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
+| [1840-maximum-building-height](https://github.com/ADS-bot/Leetcode/tree/master/1840-maximum-building-height) |
 | [3951-minimum-energy-to-maintain-brightness](https://github.com/ADS-bot/Leetcode/tree/master/3951-minimum-energy-to-maintain-brightness) |
 ## Binary Search
 |  |
@@ -95,6 +97,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 |  |
 | ------- |
 | [1344-angle-between-hands-of-a-clock](https://github.com/ADS-bot/Leetcode/tree/master/1344-angle-between-hands-of-a-clock) |
+| [1840-maximum-building-height](https://github.com/ADS-bot/Leetcode/tree/master/1840-maximum-building-height) |
 | [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/ADS-bot/Leetcode/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
 | [3953-maximum-score-with-co-prime-element](https://github.com/ADS-bot/Leetcode/tree/master/3953-maximum-score-with-co-prime-element) |
 ## Greedy
