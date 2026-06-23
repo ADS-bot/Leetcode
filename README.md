@@ -25,6 +25,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | [1025-minimum-cost-for-tickets](https://github.com/ADS-bot/Leetcode/tree/master/1025-minimum-cost-for-tickets) |
 | [1340-jump-game-v](https://github.com/ADS-bot/Leetcode/tree/master/1340-jump-game-v) |
 | [1653-minimum-deletions-to-make-string-balanced](https://github.com/ADS-bot/Leetcode/tree/master/1653-minimum-deletions-to-make-string-balanced) |
+| [3699-number-of-zigzag-arrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3699-number-of-zigzag-arrays-i) |
 | [3952-maximum-total-value-of-covered-indices](https://github.com/ADS-bot/Leetcode/tree/master/3952-maximum-total-value-of-covered-indices) |
 | [3954-sum-of-compatible-numbers-in-range-i](https://github.com/ADS-bot/Leetcode/tree/master/3954-sum-of-compatible-numbers-in-range-i) |
 | [3956-maximum-sum-of-m-non-overlapping-subarrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3956-maximum-sum-of-m-non-overlapping-subarrays-i) |
@@ -45,6 +46,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
+| [3699-number-of-zigzag-arrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3699-number-of-zigzag-arrays-i) |
 | [3956-maximum-sum-of-m-non-overlapping-subarrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3956-maximum-sum-of-m-non-overlapping-subarrays-i) |
 | [3957-maximum-sum-of-m-non-overlapping-subarrays-ii](https://github.com/ADS-bot/Leetcode/tree/master/3957-maximum-sum-of-m-non-overlapping-subarrays-ii) |
 ## Tree
