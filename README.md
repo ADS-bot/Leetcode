@@ -12,6 +12,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [1840-maximum-building-height](https://github.com/ADS-bot/Leetcode/tree/master/1840-maximum-building-height) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
+| [3739-count-subarrays-with-majority-element-ii](https://github.com/ADS-bot/Leetcode/tree/master/3739-count-subarrays-with-majority-element-ii) |
 | [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
 | [3951-minimum-energy-to-maintain-brightness](https://github.com/ADS-bot/Leetcode/tree/master/3951-minimum-energy-to-maintain-brightness) |
 | [3952-maximum-total-value-of-covered-indices](https://github.com/ADS-bot/Leetcode/tree/master/3952-maximum-total-value-of-covered-indices) |
@@ -40,6 +41,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
+| [3739-count-subarrays-with-majority-element-ii](https://github.com/ADS-bot/Leetcode/tree/master/3739-count-subarrays-with-majority-element-ii) |
 | [3934-smallest-unique-subarray](https://github.com/ADS-bot/Leetcode/tree/master/3934-smallest-unique-subarray) |
 | [3953-maximum-score-with-co-prime-element](https://github.com/ADS-bot/Leetcode/tree/master/3953-maximum-score-with-co-prime-element) |
 ## Prefix Sum
@@ -48,6 +50,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
 | [3699-number-of-zigzag-arrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3699-number-of-zigzag-arrays-i) |
+| [3739-count-subarrays-with-majority-element-ii](https://github.com/ADS-bot/Leetcode/tree/master/3739-count-subarrays-with-majority-element-ii) |
 | [3956-maximum-sum-of-m-non-overlapping-subarrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3956-maximum-sum-of-m-non-overlapping-subarrays-i) |
 | [3957-maximum-sum-of-m-non-overlapping-subarrays-ii](https://github.com/ADS-bot/Leetcode/tree/master/3957-maximum-sum-of-m-non-overlapping-subarrays-ii) |
 ## Tree
@@ -152,4 +155,16 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- |
 | [3612-process-string-with-special-operations-i](https://github.com/ADS-bot/Leetcode/tree/master/3612-process-string-with-special-operations-i) |
 | [3614-process-string-with-special-operations-ii](https://github.com/ADS-bot/Leetcode/tree/master/3614-process-string-with-special-operations-ii) |
+## Divide and Conquer
+|  |
+| ------- |
+| [3739-count-subarrays-with-majority-element-ii](https://github.com/ADS-bot/Leetcode/tree/master/3739-count-subarrays-with-majority-element-ii) |
+## Segment Tree
+|  |
+| ------- |
+| [3739-count-subarrays-with-majority-element-ii](https://github.com/ADS-bot/Leetcode/tree/master/3739-count-subarrays-with-majority-element-ii) |
+## Merge Sort
+|  |
+| ------- |
+| [3739-count-subarrays-with-majority-element-ii](https://github.com/ADS-bot/Leetcode/tree/master/3739-count-subarrays-with-majority-element-ii) |
 <!---LeetCode Topics End-->
