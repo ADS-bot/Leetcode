@@ -40,6 +40,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 ## Hash Table
 |  |
 | ------- |
+| [1358-number-of-substrings-containing-all-three-characters](https://github.com/ADS-bot/Leetcode/tree/master/1358-number-of-substrings-containing-all-three-characters) |
 | [1590-make-sum-divisible-by-p](https://github.com/ADS-bot/Leetcode/tree/master/1590-make-sum-divisible-by-p) |
 | [3381-maximum-subarray-sum-with-length-divisible-by-k](https://github.com/ADS-bot/Leetcode/tree/master/3381-maximum-subarray-sum-with-length-divisible-by-k) |
 | [3739-count-subarrays-with-majority-element-ii](https://github.com/ADS-bot/Leetcode/tree/master/3739-count-subarrays-with-majority-element-ii) |
@@ -67,6 +68,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 ## String
 |  |
 | ------- |
+| [1358-number-of-substrings-containing-all-three-characters](https://github.com/ADS-bot/Leetcode/tree/master/1358-number-of-substrings-containing-all-three-characters) |
 | [1653-minimum-deletions-to-make-string-balanced](https://github.com/ADS-bot/Leetcode/tree/master/1653-minimum-deletions-to-make-string-balanced) |
 | [3612-process-string-with-special-operations-i](https://github.com/ADS-bot/Leetcode/tree/master/3612-process-string-with-special-operations-i) |
 | [3614-process-string-with-special-operations-ii](https://github.com/ADS-bot/Leetcode/tree/master/3614-process-string-with-special-operations-ii) |
@@ -146,6 +148,7 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 ## Sliding Window
 |  |
 | ------- |
+| [1358-number-of-substrings-containing-all-three-characters](https://github.com/ADS-bot/Leetcode/tree/master/1358-number-of-substrings-containing-all-three-characters) |
 | [3956-maximum-sum-of-m-non-overlapping-subarrays-i](https://github.com/ADS-bot/Leetcode/tree/master/3956-maximum-sum-of-m-non-overlapping-subarrays-i) |
 | [3957-maximum-sum-of-m-non-overlapping-subarrays-ii](https://github.com/ADS-bot/Leetcode/tree/master/3957-maximum-sum-of-m-non-overlapping-subarrays-ii) |
 ## Monotonic Queue
